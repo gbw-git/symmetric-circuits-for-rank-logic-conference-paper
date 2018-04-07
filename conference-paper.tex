@@ -1,0 +1,250 @@
+
+\documentclass[a4paper,UKenglish]{lipics-v2018}
+% This is a template for producing LIPIcs articles. See lipics-manual.pdf for
+% further information. for A4 paper format use option "a4paper", for US-letter
+% use option "letterpaper" for british hyphenation rules use option "UKenglish",
+% for american hyphenation rules use option "USenglish" for section-numbered
+% lemmas etc., use "numberwithinsect"
+
+%\usepackage{microtype}%if unwanted, comment out or use option "draft"
+
+
+\usepackage{xspace}
+\usepackage{mymacros}
+
+% 
+\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
+
+\bibliographystyle{plainurl}% the recommnded bibstyle
+
+\title{Symmetric Circuits for Rank Logic}
+
+% \titlerunning{Dummy short
+% title}%optional, please use if title is longer than one line
+
+\author{Anuj Dawar}{University of Cambridge Computer Laboratory\\{Cambridge,
+    UK}}{anuj.dawar@cl.cam.ac.uk}{}{}%mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty.
+
+\author{Gregory Wilsenach}{University of Cambridge Computer
+  Laboratory\\{Cambridge, UK}}{gregory.wilsenach@cl.cam.ac.uk}{}{Funding
+  provided by the Gates Cambridge Scholarship}
+
+\authorrunning{J.Q. Public and J.R.
+  Public}%mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et. al.'
+
+\Copyright{Anuj Dawar and Gregory
+  Wilsenach} %mandatory, please use full first names. LIPIcs license is "CC-BY"; http://creativecommons.org/licenses/by/3.0/
+
+\subjclass{F.1.3 Complexity Measures and Classes, F.4.1 Math.
+  Logic} % mandatory: Please choose ACM 2012 classifications from https://www.acm.org/publications/class-2012 or https://dl.acm.org/ccs/ccs_flat.cfm . E.g., cite as "General and reference $\rightarrow$ General literature" or \ccsdesc[100]{General and reference~General literature}.
+
+\keywords{Dummy keyword}%mandatory
+
+\category{}%optional, e.g. invited paper
+
+\relatedversion{}%optional, e.g. full version hosted on arXiv, HAL, or other respository/website
+
+\supplement{}%optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
+
+\funding{}%optional, to capture a funding statement, which applies to all authors. Please enter author specific funding statements as fifth argument of the \author macro.
+
+\acknowledgements{I want to thank \dots}%optional
+
+% Editor-only macros:: begin (do not touch as
+% author)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\EventEditors{John Q. Open and Joan R. Access} \EventNoEds{2}
+\EventLongTitle{42nd Conference on Very Important Topics (CVIT 2016)}
+\EventShortTitle{CVIT 2016} \EventAcronym{CVIT} \EventYear{2016}
+\EventDate{December 24--27, 2016} \EventLocation{Little Whinging, United
+  Kingdom} \EventLogo{} \SeriesVolume{42} \ArticleNo{23}
+% \nolinenumbers %uncomment to disable line numbering
+% \hideLIPIcs %uncomment to remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We give a circuit characterization for fixed-point logic with rank
+(FPR) in terms of families of symmetric circuits with rank gates,
+along the lines of that for fixed-point logic with counting (FPC)
+given by [Anderson and Dawar 2017].  This requires the development of
+a broad framework of circuits in which the individual gates compute
+functions that are not symmetric (i.e., invariant under all
+permutations of their inputs).  In the case of FPC, the proof of
+equivalence of circuits and logic rests heavily on the assumption that
+individual gates compute such symmetric function and so novel
+techniques are required to make this work for FPR.
+\end{abstract}
+
+\section{Introduction}
+
+The study of extensions of fixed-point logics plays an important role in the
+field of descriptive complexity theory. In particular, fixed-point logic with
+counting ($\FPC$) has become a reference logic in the search for a logic for
+polynomial-time (see~\cite{Dawar-siglog}). In this context, Anderson and
+Dawar~\cite{AndersonD17} provide an interesting characterisation of the
+expressive power of $\FPC$ in terms of circuit complexity. They show that the
+properties expressible in this logic are exactly those that can be decided by
+polynomially-uniform families of circuits (with threshold gates) satisfying a
+natural \emph{symmetry} condition. Not only does this illustrate the robustness
+of $\FPC$ as a complexity class within $\PT$ by giving a distinct and natural
+characterization of it, it also demonstrates that the techniques for proving
+inexpressibility in the field of finite model theory can be understood as
+lower-bound methods against a natural circuit complexity class. This raises an
+obvious question (explicitly posed in the concluding section
+of~\cite{AndersonD17}) of how to obtain circuit characterizations of logics more
+expressive than $\FPC$, such as choiceless polynomial time (CPT) and fixed-point
+logic with rank ($\FPR$). It is this last question that we address in this
+paper.
+
+Fixed-point logic with rank extends the expressive power of $\FPC$ by means of
+operators that allow us to define the rank of a matrix over a finite field. Such
+operators are natural extensions of counting---counting the dimension of a
+definable vector space rather than just the size of a definable set. At the same
+time they make the logic rich enough to express many of the known examples that
+separate $\FPC$ from $\PT$. Rank logics were first introduced
+in~\cite{Dawar09logicswith}. The version $\FPR$ we consider here is that defined
+by Gr\"adel and Pakusa~\cite{GradelP15a} where the prime characteristic is a
+parameter to the rank operator, and we do not have a distinct operator for each
+prime number. Formal definitions of these logics are given in
+Section~\ref{sec:background}. We give a circuit characterization, in terms of
+symmetric circuits, of $\FPR$. One might think, at first sight, that this is a
+simple matter of extending the circuit model with gates for computing the rank
+of a matrix. It turns out, however, that the matter is not so simple as the
+symmetry requirement interacts in surprising ways with such rank gates. It
+requires a new framework for defining classes of such circuits, which yields
+remarkable new insights.
+
+It is important to clarify at the outset what is meant by symmetric circuits.
+Indeed, there are different senses in which the word \emph{symmetry} is used in
+the context of circuits (and also in this paper). We say that a Boolean function
+$f:\{0,1\}^n \ra \{0,1\}$ is symmetric if the value of the function on a string
+$s$ is determined by the number of $1$s in $s$. In other words, $f$ is invariant
+under \emph{all} permutations of its input. In contrast, when we consider the
+input to a Boolean function to be the adjacency matrix of an $n$-vertex graph,
+for example, and $f : \{0,1\}^{n \choose 2} \ra \{0,1\}$ decides a graph
+property, then $f$ is invariant under all permutations of its input induced by
+permutations of the $n$ vertices of the graph. We call such a function
+\emph{graph-invariant}. More generally, for a relational vocabulary $\tau$ and a
+standard encoding of $n$-element $\tau$-structures as strings over $\{0,1\}$, we
+can say that function taking such strings as input is $\tau$-invariant if it is
+invariant under permutations induced by the $n$ elements. A circuit $C$
+computing such an invariant function is said to be \emph{symmetric} if every
+permutation of the $n$ elements extends to an automorphism of $C$. It is
+families of symmetric circuits in this sense that characterize $\FPC$
+in~\cite{AndersonD17}. The restriction to symmetric circuits arises naturally in
+the study of logics and has appeared previously under the names of generic
+circuits in the work of~\cite{DENENBERG1986216} and explicitly order-invariant
+circuits in the work of Otto~\cite{Otto1997}.
+
+The main result of~\cite{AndersonD17} says that the properties of
+$\tau$-structures definable in $\FPC$ are exactly those that can be decided by
+$\PT$-uniform families of symmetric circuits using AND, OR, NOT and majority
+gates. Note that each of these gates itself computes a Boolean function that is
+symmetric in the strong sense identified above. On the other hand, a gate for
+computing a rank threshold function, e.g.\ one that takes as input a $n \times
+n$ matrix and outputs $1$ if the rank of the matrix is greater than a threshold
+$t$, is \emph{not} symmetric. In our circuit characterization of $\FPR$ we
+necessarily have to consider such non-symmetric gates. Indeed, we show in
+Section~\ref{sec:symm-circ} that $\PT$-uniform families of symmetric circuits
+using gates for \emph{any} symmetric functions do not take us beyond the power
+of $\FPC$. This is a further illustration of the robustness of $\FPC$. In order
+to go beyond it, we need to introduce gates for Boolean functions that are not
+symmetric. We construct a systematic framework for including functions computing
+$\tau$-invariant functions for arbitrary multi-sorted relational vocabularies
+$\tau$ in Section~\ref{sec:symm-circ}. We also explore what it means for such
+circuits to be symmetric.
+
+The proof of the circuit characterization of $\FPC$ relies on the \emph{support
+  theorem} proved in~\cite{AndersonD17}. This establishes that for any
+$\PT$-uniform family of circuits using AND, OR, NOT and majority gates there is
+a constant $k$ such that every gate has a support of size at most $k$. That is
+to say that we can associate with every gate $g$ in the circuit $C_n$ (the
+circuit in the family that works on $n$-element structures) a subset $X$ of
+$[n]$ of size at most $k$ such that any permutation of $[n]$ fixing $X$
+pointwise extends to an automorphism of $C_n$ that fixes $g$. This theorem is
+crucial to the translation of the family of circuits into a formula of $\FPC$,
+which is the difficult (and novel) direction of the equivalence. In attempting
+to do the same with circuits that now use rank-threshold gates we are faced with
+the difficulty that the proof of the support theorem in~\cite{AndersonD17}
+relies in an essential way on the fact that the Boolean function computed at
+each gate is symmetric. We are able to overcome this difficulty and prove a
+support theorem for circuits with rank gates but this requires substantial,
+novel technical machinery, which we develop in Section~\ref{sec:symm-support}.
+
+Another crucial ingredient in the proof of Anderson and Dawar is that we can
+eliminate redundancy in the circuit $C_n$ by making it \emph{rigid}. That is, we
+can ensure that the \emph{only} automorphisms of $C_n$ are those that are
+induced by permutations of $[n]$. Here we face the difficulty that identifying
+the symmetries and eliminting redundancy in a circuit that involves gates
+computing $\tau$-invariant functions requires us to solve the isomorphism
+problem for $\tau$-structures. This is a hard problem (or, at least, one that we
+do not know how to solve efficiently) even when the $\tau$-structures are
+$0$-$1$-matrices. We overcome this difficulty by placing a further restriction
+on circuits that we call \emph{transparency}. Circuits satisfying this condition
+have the property that their lack of redundancy is transparent. We explore this
+condition and its consequences in Section~\ref{sec:transparent}, where we also
+demonstrate that something like this requrement is necessary. Natural weakenings
+of this requirement yield circuits in which deciding symmetry seems hard.
+
+In the characterization of $\FPC$, the translation from formulas into families
+of circuits is easy and, indeed, standard. In our case, we have to show that
+formulas of $\FPR$ translate into uniform families of circuits using
+rank-threshold gates that are symmetric and transparent. This is somewhat more
+involved technically and the details are presented in
+Section~\ref{sec:formulas-to-circuits}. Finally, with all these tools in place,
+the translation of such $\PT$-uniform families of circuits into formulas of
+$\FPR$ given in Section~\ref{sec:circuits-to-formulas} completes the
+characterization. This still requires substantial new techniques. The
+translation of circuits to formulas in~\cite{AndersonD17} relies on the fact
+that in order to evaluate a gate computing a symmetric Boolean function, it
+suffices to count the number of inputs that evaluate to true and there is a
+bijection between the orbits of a gate and tuple assignments to its support.
+When counting is no longer sufficient, this bijection has to preserve more
+structure and demonstrating this in the case of matrices requires new insight.
+
+
+\section{Background}
+We assume the reader is familiar with first-order logic ($\FO$), inflationary
+fixed-point logic ($\FP$), Fixed-point logic with counting ($\FPC$), and
+first-order logic with counting quantifiers ($\FOC$). For details on these
+logics please see \cite{grohe2017descriptive, immerman1999descriptive}.
+Throughout this paper we assume all algebraic structures are finite.
+
+\subsection{Logic}
+\subsection{Rank Logic}
+\subsection{Circuits}
+
+\section{Generalising Symmetric Circuits}
+A Boolean circuit $C$ is usually taken to be a directed acyclic graph with a set
+of input gates labelled by variables and with each internal gate $g$ in the
+circuit labelled with a function $f_g$ from a basis $\BB$. However, if $f_g$
+were allowed to be arbitrary, then an order would need to be imposed on the
+children of $g$ in order to ensure unambiguous evaluation. As such, when we say
+that $C$ is a directed acyclic graph, and we include no structure on the
+children of each gate, we implicitly assume that $f_g$ is invariant under all
+permutations of its inputs -- i.e.\ $f_g$ is a symmetric function. The, often
+unstated assumption that the basis over which the circuit is defined contain
+only symmetric functions is pervasive in circuit complexity. Indeed, it is easy
+to see that the standard Boolean basis consisting of $\AND$, $\OR$ and $\NOT$,
+as well as bases with majority or threshold functions only contain symmetric
+functions.
+
+Anderson and Dawar~\cite{AndersonD17} have defined a characterisation of $\FPC$
+
+
+\section{Symmetry and Supports}
+\section{Transparent Circuits}
+\section{The Translation from Formulas into Circuits}
+\section{The Translation from Circuits into Formulas}
+\section{Concluding Remarks and Future Work}
+
+% \appendix
+
+\bibliography{references.bib}
+%\bibliography{lipics-v2018-sample-article}
+
+
+\end{document}
