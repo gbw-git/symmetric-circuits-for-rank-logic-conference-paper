@@ -11,6 +11,7 @@
 
 \usepackage{xspace}
 \usepackage{mymacros}
+\usepackage{tikz-cd}
 
 % 
 \graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
@@ -206,15 +207,78 @@ structure and demonstrating this in the case of matrices requires new insight.
 
 
 \section{Background}
-We assume the reader is familiar with first-order logic ($\FO$), inflationary
-fixed-point logic ($\FP$), Fixed-point logic with counting ($\FPC$), and
-first-order logic with counting quantifiers ($\FOC$). For details on these
-logics please see \cite{grohe2017descriptive, immerman1999descriptive}.
-Throughout this paper we assume all algebraic structures are finite.
+Let $\sym_S$ denote the group of all permutations of the set $S$. We write
+$\sym_n$ for $\sym_{[n]}$.
 
 \subsection{Logic}
+A \emph{vocabulary} is a finite sequence of relation symbols $(R_1, \ldots,
+R_k)$, each of which has a fixed \emph{arity}. We often let $r_i \in \nats$
+denote the arity of the relation symbol $R_i$. A \emph{many-sorted vocabulary}
+is a tuple of the form $(R, S, \nu)$, where $R$ is a relational vocabulary, $S$
+is a finite sequence of \emph{sort} symbols, and $\nu$ is a function that
+assigns to each $R_i \in R$ a tuple $\nu(R_i) := (s_1, \ldots, s_{r_i})$, where
+for each $j \in [r_i]$, $s_j \in S$. We call $\nu(R_i)$ the \emph{type} of
+$R_i$. A \emph{$\tau$-structure} $\mathcal{A}$ is a tuple $(U ,
+R^{\mathcal{A}}_1 , \ldots , R^{\mathcal{A}}_k)$ where $U = \uplus_{s \in S }
+U_{s}$ a disjoint union of non-empty sets, and is called the \emph{universe} of
+$\mathcal{A}$, and for all $i \in [k]$, $R^{\mathcal{A}}_i \subseteq
+R^{\mathcal{A}}_i \subseteq U_{s^i_1} \times \ldots \times U_{s_{r_i}}$, where
+$(s_1 , \ldots , s_{r_i}) = \nu (R_i)$. The size of $\mathcal{A}$, denoted by
+$\vert \mathcal{A} \vert$ is the cardinality of its universe. Throughout this
+paper we assume all algebraic structures are finite.
+
+\subsection{First Order Logic and Counting}
+Let $\FO[\tau]$ denote \emph{first-order logic} with respect to the vocabulary
+$\tau$. A formula in $\FO[\tau]$ is formed from atomic formulas, each formed
+using variables from some countable sequence of (first-order) variable symbols
+$(x, y, \ldots)$, the relation symbols in $\tau$, and the equality symbol $=$,
+and then closing the set of atomic formulas under the Boolean connectives,
+negation, and universal and existential quantification (i.e.\ $\land$, $\lor$,
+$\neg$, $\forall$, and $\exists$).
+
+We assume the reader is familiar with first-order logic, inflationary
+fixed-point logic ($\FP$), fixed-point logic with counting ($\FPC$), and
+first-order logic with counting quantifiers ($\FOC$). For details on these
+logics please see \cite{grohe2017descriptive, immerman1999descriptive}.
+
 \subsection{Rank Logic}
+Let $\FPR[\tau]$ denote \emph{fixed-point logic with rank} (or just \emph{rank
+  logic}) with respect to the vocabulary $\tau$. The logic $\FPR$ is an
+extension of $\FP$ to include an operator that denotes the rank of a definable
+matrix over a finite field, as well as other mechanisms for reasoning about
+quantity. We now briefly describe the structure of a formula in $\FPR[\tau]$.
+Each variable is either a number or vertex variable, with vertex variables
+assigned to elements of the universe and number variables assigned to natural
+numbers. All atomic formulas in $\FP[\tau]$ are atomic formulas in $\FPR[\tau]$.
+We say that $t$ is a \emph{number term} if $t$ is a number variable or if $t$ is
+an application of the \emph{rank operator}, i.e.\ $t = [\rank (\vec{x}, \vec
+{\nu} \leq \vec{t}, \vec{y},\vec{\mu} \leq \vec{s}, \pi \leq \eta). \phi]$,
+where $\phi$ is a number term, $\vec{t}$ and $\vec{s}$ are tuples of number
+terms bounding the sequences of number variables $\vec{\mu}$ and $\vec{\nu}$,
+and $\eta$ is a number term bounding the number variable $\pi$. If $t_1$ and
+$t_2$ are number terms then $t_1 \leq t_2$ and $t_1 = t_2$ are atomic formulas.
+The formulas of $\FPR$ are then formed by closing the set of atomic formulas
+under the usual Boolean connectives, the first-order quantifiers, and the
+fixed-point operator. We only allow bounded quantification for number terms.
+Second-order variables, such as those that appear in a fixed-point application,
+may have mixed-type.
+
+We should note that there are two rank-logics in the literature. $\FPR$ is the
+logic defined by Grad{\"e}l and Pakusa~\cite{GradelP15a}, rather than the
+strictly less expressive rank logic introduced in~\cite{Dawar09logicswith}. We
+let $\FOR[\tau]$ denote the set of all formulas in $\FPR[\tau]$ without an
+application of the fixed-point operator. Let $\FOrk[\tau]$ denote
+\emph{fixed-point logic with rank quantifiers} with respect to $\tau$. We define
+for each prime $p$, and natural number $r$, a rank quantifier $\rank^r_p$, such
+that $\rank^r_p\vec{x}\vec{y}. \phi$ is interpreted as $[\rank (\vec{x},
+\vec{y}, \pi) . \phi] \leq t_r$, where $\pi$ is assigned to $p$ and $t_r$ is a
+number term that evaluates to $r$. The arity of this quantifier is $\vert
+\vec{x} \vert + \vert \vec{y} \vert$. Let $\mathcal{R}$ be the set of all such
+quantifiers and $\FOrk[\tau]$ be the closure of $\FO[\tau]$ under $\mathcal{R}$.
+For more details on rank quantifiers see~\cite{Dawar09logicswith}.
+
 \subsection{Circuits}
+
 
 \section{Generalising Symmetric Circuits}
 A Boolean circuit $C$ is usually taken to be a directed acyclic graph with a set
@@ -266,10 +330,9 @@ functions that take structures as input. For example, if we are interested in
 Boolean functions that that as inputs directed graphs we would let $X = V^2$ for
 some vertex set $V$. In this case the natural symmetry condition would not be
 invariance under arbitrary permutation, but rather invariance under the action
-of a permutation of $V$, i.e.\ under the action of an isomorphism. In this
-section
+of a permutation of $V$, i.e.\ under the action of an isomorphism.
 
-In this section we introduce functions that take as input $\tau$-structures,
+In this section we introduce functions that take $\tau$-structures as input,
 where $\tau$ is some many-sorted vocabulary. Let $\tau := (R, S, \nu)$ be a
 many-sorted vocabulary and let $D := \biguplus_{s \in S} D_{s} = \{(s,d) : d \in
 D_s\}$, be a disjoint union of non-empty sets. Let $\str{\tau, D}$ be the
@@ -675,8 +738,9 @@ us to conclude that every gate $g$ in $C$ has a small canonical support if it
 has a canonical supporting partition with very few parts. We then prove by
 structural induction that the canonical supporting partition of every gate has
 few parts. To be precise, we show that if $g$ is the topologically first gate in
-the circuit with a canonical supporting partition with too many parts, then
-$\vert \orb(g) \vert > 2^{n^{1 - \epsilon}}$.
+the circuit with a canonical supporting partition with too many parts then
+$\vert \orb(g) \vert > 2^{n^{1 - \epsilon}}$, i.e.\ the orbit is larger than the
+given bound.
 
 We do this by establishing the existence of a large set $H$ of permutations that
 each take $g$ to a different gate. To construct $H$, we define a set of triples
@@ -709,9 +773,10 @@ to $\stab(g)$. We are often interested in the action of the subgroup
 $\spstab{g}$ rather. We let $\stab_{\consp{g}}(a)$ and $\orb_{\consp{g}}(a)$ be
 the orbit and stabiliser of $a$ under the action of $\spstab{g}$. We let
 $\consp_{\consp(g)}(a)$ and $\SP_{\consp(g)}(a)$ denote the canonical support
-and canonical supporting partition of $\stab_{\consp(g)}(a)$. The following
-lemma is a direct consequence of the support theorem, and it extends it to
-elements of the universe of a gate.
+and canonical supporting partition of $\stab_{\consp(g)}(a)$. In all cases when
+the choice of $g$ is obvious from context we omit the subscript. The following
+lemma is a direct consequence of the support theorem. It extends the support
+theorem to elements of the universe of a gate.
 
 \begin{lemma}
   \label{lem:row-column-supports}
@@ -721,49 +786,198 @@ elements of the universe of a gate.
   \begin{itemize}
   \item $\stab_n(g)$, $\stab_{\consp(g)}(a)$ and $\stab_{g}(a)$ have small
     supports,
-  \item if $h \in H_g$ and $a$ appears in $L(g)^{-1}(h)$ then $\consp_g(a)
-    \subseteq \consp_{\consp(g)}(a) \subseteq \consp(g) \cup \consp(h)$, and
-  \item $\vert \consp(g) \leq k$ and $\vert \consp_g(a) \vert \leq \vert
-    \consp_{\consp(g)}(a) \vert \leq 2k$.
+  \item if $h \in H_g$ and $a$ appears in $L(g)^{-1}(h)$ then
+    $\consp_{\consp(g)}(a) \subseteq \consp(g) \cup \consp(h)$, and
+  \item $\vert \consp(g) \leq k$ and $\vert \consp_{\consp(g)}(a) \vert \leq
+    2k$.
   \end{itemize}
 \end{lemma}
 
 
 \section{The Translation from Formulas into Circuits}
 The usual translation from formulas to uniform families of symmetric circuits
-(see \cite{} for examples) does not result in a family of \emph{transparent}
-circuits. We must thus define a novel translation. We first define a translation
-from $\PT$-uniform families of bounded-width $\FOrk$-formulas to equivalent
-$\PT$-uniform of transparent symmetric rank-circuits. We then define a
-translation from formulas of $\FPR$ to $\PT$-uniform families of bounded-width
-$\FOrk$-formulas. The first of these translations is given by the following
-lemma.
+(see~\cite{} for examples) does not result in a family of \emph{transparent}
+circuits. We must thus define a novel translation. We do this in two parts. We
+first define a translation from $\PT$-uniform families of bounded-width
+$\FOrk$-formulas to equivalent $\PT$-uniform of transparent symmetric
+rank-circuits. We then define a translation from formulas of $\FPR$ to
+$\PT$-uniform families of bounded-width $\FOrk$-formulas. The first of these
+translations is given by the following lemma.
 
 \begin{lemma}
   There is a function that takes as input a $\FOrk$-formula $\theta(\vec{x})$
-  and $n \in \nats$ and outputs a circuit $C$ that translates $\theta(\vec{x})$
-  for $n$. Moreover, this function is computable and there is a polynomial in
-  $p$ such that for an input $(\theta(\vec{x}), n)$ the algorithm computing this
-  function terminates in at most $p(n^{\width(\theta)}\vert \cl{\theta} \vert)$
-  many steps.
+  and $n \in \nats$ and outputs a transparent symmetric rank-circuit $C$ of
+  order $n$ defined over the same vocabulary as $theta(\vec{x})$ and that
+  computes the query defined by $\theta(\vec{x})$ for structures of size $n$.
+  Moreover, this function is computable and there is a polynomial in $p$ such
+  that for an input $(\theta(\vec{x}), n)$ the algorithm computing this function
+  terminates in at most $p(n^{\width(\theta)}\vert \cl{\theta} \vert)$ many
+  steps.
   \label{lem:translating-FOrk}
+  
 \end{lemma}
+\begin{proof}[Proof Sketch]
+  
+  The proof follows easily once one understands why the usual translation does
+  not produce a transparent circuit. Consider the following example. Suppose
+  $\psi(\vec{y})$ is a subformula of $\theta(\vec{x})$ of the form $\rank^r_p
+  \vec{w} \vec{z} . \phi$ and suppose that $\phi := w_1 \land w_2$. In this case
+  the syntactic structure of $\phi$ is fixed by all permutations of the
+  variables $\vec{w} \cup \vec{z}$ that fix $\{w_1, w_2\}$ set-wise. The usual
+  translation to circuits would preserve these symmetries, resulting in most of
+  the input gates of the rank gate being syntactically-equivalent.
+  
+  In order to address this we first preprocess the formula $\theta(\vec{x})$,
+  defining a new formula $\lambda (\vec{x})$ that decides the same query but is
+  defined so as to include \emph{only} those symmetries that follow from the
+  natural symmetry of the rank gate, and not those introduced by a particular
+  application. We define $\lambda(\vec{x})$ as follows. Let $R$ be a relation
+  symbol in the vocabulary of $\theta(\vec{x})$ (if the vocabulary is empty the
+  translation is trivial). For a variable $y$ let $\op{no-op}(y) := (R(y, y)
+  \lor (\neg R(y, y)))$. For a sequence of variables $\vec{y} = (y_1, \ldots,
+  y_m)$ let $\op{tag} (\vec{y}) := (\op{no-op}(y_1) \land (\op{no-op}(y_2) \land
+  ( \op{no-op}(y_2) \land ( \ldots \land (\op{no-op}(y_m)) \ldots))))$. Let
+  $\lambda (\vec{x})$ be the formula constructed from $\theta(\vec{x})$ by
+  replacing each sub-formula $\psi(\vec{y})$ of the form $\rank^r_p \vec{w}
+  \vec{z} . \phi$ with the formula $\rank^r_p \vec{w}\vec{z} . ((\forall u . u =
+  u) \land \phi) \land \op{tag}(\vec{w} \cup \vec{z})$. Since we always replace
+  a subformula $\phi$ with a logically equivalent formula, it follows that
+  $\lambda (\vec{x})$ and $\theta (\vec{x})$ are equivalent. The intuition is
+  that $\op{tag}(\vec{w} \cup \vec{z})$ appends a tower of conjunctions of
+  tautologies, with each tautology referencing a unique variable from $\vec{w}
+  \cup \vec{z}$. When we construct the circuit, this tower of tautologies acts
+  to `tag' each input to the rank gate with a unique gadget.
 
-The intuition behind the proof of this result is as follows. For a given $\theta
-(\vec{x}) \in \FOrk[\tau]$ we construct a circuit by associating with each
-subformula $\psi(\vec{y})$ and $\vec{a}$ an assignment to the free variables in
-$\psi$ a gate $g_{\psi, \vec{a}}$ in the circuit. For each assignment $g_{\phi,
-  \vec{a}}$ is an input gate of $g_{\psi, \vec{a}}$ if, and only if, $\phi$ is a
-direct subformula of $\psi$. However,
+  We then construct $C$ using the usual approach. For each $\psi(\vec{y})$ a
+  subformula of $\lambda(\vec{x})$ and each assignment $\vec{a} \in [n]^{\vert
+    \vec{y} \vert}$ to $\vec{y}$ we include a gate $g_{\psi, \vec{a}}$ in $C$.
+  We wire the circuit such that $g_{\phi, \vec{a}}$ is an input gate to
+  $g_{\psi, \vec{b}}$ if, and only if, $\phi$ is an immediate subformula of
+  $\psi$ and the two assignments never assign the same variable to two different
+  values. For more details on this translation see~\cite{}.
+\end{proof}
 
+The translation from $\FPR$ to $\PT$-uniform families of bounded-width
+$\FOrk$-formulas is a concatenation of the following two translations. First,
+from~\cite{Dawar09logicswith}, we can translate $\theta(\vec{x}) \in \FPR[\tau]$
+of width $t$ into an equivalent $\PT$-uniform family of $\FOR[\tau]$-formulas.
+Second, from~\cite{libkin2004elements}, we can translate $\FOR[\tau]$-formulas
+into equivalent $\PT$-uniform families of $\FOrk[\tau]$-formulas. Both of these
+translations increase width by a constant factor. This translation, combined
+with Lemma~\cite{lem:translating-FOrk}, allows us to prove the following.
 
 \begin{theorem}
-  For each $\FPR$-formula $\theta(\vec{x})$ there exists a family of circuits
-  $(C_n)_{n \in \nats}$ that translates $\theta(\vec{x})$.
+  For each $\FPR$-formula $\theta(\vec{x})$ there exists a $\PT$-uniform family
+  of transparent symmetric rank-gates $(C_n)_{n \in \nats}$ that defines the
+  same query as $\theta(\vec{x})$.
   \label{thm:translating-formulas-to-circuits}
 \end{theorem}
 
 \section{The Translation from Circuits into Formulas}
+We leverage the support theorem and the various polynomial-time algorithms
+defined for transparent circuits and circuits with unique labels in order to
+define a translation from $\PT$-uniform families symmetric rank-logic to
+formulas of $\FPR$. Let $\mathcal{C} = (C_n)_{n \in \nats}$ denote a fixed
+$\PT$-uniform family of transparent symmetric $(\RB, \rho)$-circuits that
+compute a $q$-ary query.
+
+From the Immerman-Vardi theorem~\cite{Immerman198686, Vardi:1982} and
+Lemma~\ref{lem:transparent-unique}, there is an interpretation $\Phi$ that for
+each $\rho$-structure $\mathcal{A}$ of size $n$, when $\Phi$ is interpreted in
+$\mathcal{A}$ defines a symmetric rank-circuit with unique labels in the number
+universe equivalent to $C_n$. We show that there is an $\FPR[\rho]$-formula
+$Q(\vec{x})$ such that $\mathcal{A} \models Q[\vec{a}]$ if, and only if,
+$C_n[\gamma \mathcal{A}](\Omega (\gamma \vec{a})) = 1$ for any bijection
+$\gamma$. We construct $Q$ from an $\FPR$-definable procedure for evaluating a
+circuit.
+
+Let $n_0$ and $k$ be the constants in the statement of
+Lemma~\ref{lem:row-column-supports}. Notice that for each $n < n_0$ there are
+only constantly many bijections from the universe of a structure to $[n]$, and
+so we can explicitly quantify over these constantly many bijections and evaluate
+the circuit. Fix $n > n_0$ and a $\rho$-structure $\mathcal{A}$ with universe
+$U$ of size $n$.
+
+It follows from Lemma~\ref{lem:row-column-supports} that each gate $g$ has a
+support of size at most $k$ and each $a \in \universe{g}$ has a support of size
+most $2k$. We say that two injections $f$ and $g$ are \emph{compatible} if there
+is an injection on the union of their domains that agrees with both functions.
+If there is such a function it is clearly unique, and we denote it by $(f \vert
+g)$. We use $\sim$ to denote that two injections are compatible. We show that
+the evaluation of a gate $g$ for input $\mathcal{A}$ and bijection $\gamma$
+depends only on those elements $\gamma$ maps to $\consp(g)$.
+
+\begin{lemma}
+	Let $g$ be a gate in $C_n$. Let $\eta \in U^{\underline{\consp(g)}}$ and
+  $\gamma_1, \gamma_2 \in [n]^{\underline{U}}$ such that $\gamma^{-1}_1 \sim
+  \eta$ and $\gamma^{-1}_2 \sim \eta$. Then $L^{\gamma_1 \mathcal{A}}(g)$ and
+  $L^{\gamma_2 \mathcal{A}}(g)$ are isomorphic.
+	\label{lem:support-determines-evaluation}
+\end{lemma}
+
+It follows from Lemma~\ref{lem:support-determines-evaluation} that the
+evaluation is entirely determined by the set $\EV_g := \{ \eta \in
+U^{\underline{\consp(g)}} : \exists \gamma \in [n]^{\underline{U}}\text{ s.t. }
+C_n[\gamma \mathcal{A}](g) = 1 \text{ and } \eta \sim \gamma^{-1}\}$. We show
+that $\EV_g$ can be defined recursively, i.e.\ we define $\EV_g$ given $\{\EV_h
+: h \in H_g \}$. If $g$ is a symmetric gate then we have a $\FPC$-definable
+recursive construction of $\EV_g$ from~\cite{AndersonD17}. We assume $g$ is a
+rank-gate and describe an $\FPR$-definable recursive procedure for defining
+$\EV_g$.
+
+The construction of $\EV_g$ in~\cite{AndersonD17} uses the fact that the
+evaluation of a symmetric gate is determined by the number of inputs that
+evaluate to true, and there is a bijection between between the orbit of a gate
+and the assignment to the support. They use these results to define $\EV_g$
+using a counting argument. The results that underlie this counting argument fail
+for non-symmetric gates, and so we are forced to use a very different approach.
+
+We show that for any $\eta \in U^{\underline{\consp(g)}}$ there is an
+$\FPR$-definable matrix $M$ that has the same rank as $L^{\gamma
+  \mathcal{A}}(g)$ for any $\gamma \in [n]^{\underline{U}}$. It follows that we
+can check if $\eta \in \EV_g$ by applying the rank operator to $M$.
+
+We introduce some notation. Let $A \times B := \ind(g)$. For each $h \in H_g$
+let $\row(h) := L(g)^{-1}(h)(1)$ and $\column(h) := L(g)^{-1}(h)(2)$. Let $A_h
+:= \{ \vec{x} \in U^{\underline{\consp(h)}} : \eta \sim \vec{x} \}$ and for all
+$a \in \universe{g}$ let $A_a = \{\vec{x} \in U^{\underline{\consp(a)}} : \eta
+\sim \vec{x}\}$.
+
+We now define the matrix $M$. We first define the index sets for $M$. Let
+$R^{\min} := \{\min (\orb(\row(h))) : h \in H_g\}$ and $C^{\min} := \{ \min
+(\orb (\column(h))) : h \in H_g\}$. Let $I := \{(i, \vec{x}): i \in R^{\min},
+\vec{x} \in A_i\}$ and $J := \{(j, \vec{y}): j \in C^{\min}, \vec{y} \in A_j\}$.
+The idea is that we can think of the rows and columns of $M$ as divided into
+their orbits under the action of $\stab(\consp(g))$, with each orbit indexed by
+the minimal index in $A$ (or $B$, respectively) that appears in it. Within an
+orbit, we index the rows and colums instead by the elements of $A_i$ and $A_j$,
+implicitly using the bijection between these sets and the orbits of $\row(h)$
+and $\column(h)$.
+
+We associate with each index $((i, \vec{x}), (j, \vec{y}))$ a gate $h$ and
+$\vec{w}$ an assignment to the support of $h$ as follows. We can define $\sigma
+\in \stab(g)$ such that $\vec{y} \sigma$ is compatible with both $\eta$ and
+$\vec{x}$. Let $h = L(g)(i, \sigma j)$ and let $\vec{w} = (\vec{x} \vert \vec{y}
+\sigma)$. We define the matrix $M : I \times J \ra \{0,1\}$ by $M((i , \vec{x}),
+(j, \vec{y})) := \vec{w} \in \EV_h$.
+
+Let $x $ be a gate in $H_g$ or an element of the universe of $g$. Let $f \in
+U^{\underline{\consp(x)}}$ and $\gamma \in [n]^{\underline{U}}$ such that
+$\gamma^{-1} \sim \eta$. Let $\Pi^{\gamma}_{f} \in \spstab{g}$ such that
+$\Pi^{\gamma}_f (a) = \gamma (f(a))$ for all $a \in \consp(x)$. It is easy to
+see that $\Pi^{\gamma}_f(x)$ is well-defined. For a fixed $h \in H_g$, the
+mapping $\vec{z} \mapsto \Pi^{\gamma}_{\vec{z}}(h)$, for $\vec{z} \in A_h$,
+establishes a correspondence between $A_h$ and the orbit of $h$. It follows that
+$\vec{z} \in \EV_h$ if, and only if, $C_n[\gamma
+\mathcal{A}](\Pi^{\gamma}_{\vec{z}}(h)) = 1$.
+
+We idea is to use this correspondence to define a mapping from $M$ to $L^{\gamma
+  \mathcal{A}}(g)$. Let $\alpha^{\gamma}: I \rightarrow A$ and $\beta^{\gamma}:
+J \rightarrow B$ be defined by $\alpha^{\gamma} (i, \vec{x}) :=
+\Pi^{\gamma}_{\vec{x}}(i)$ and $\beta^{\gamma} (j, \vec{y}) :=
+\Pi^{\gamma}_{\vec{y}}(j)$, respectively. It is possible to show that
+$(\alpha^{\gamma}, \beta^{\gamma})$ is a surjective homomorphism from $M$ to
+$L^{\gamma}$.
 
 \begin{lemma}
 	Let $g$ be a gate in $C_n$. Let $\eta \in U^{\underline{\consp(g)}}$ and
@@ -788,11 +1002,144 @@ direct subformula of $\psi$. However,
 
 
 \section{Concluding Remarks and Future Work}
+$\FPR$ is one of the most expressive logics we know that is still
+contained in $\PT$ and understanding its expressive power is an
+important question.  The main result of this paper establishes an equivalence between the
+expressive power of $\FPR$ and the computational power of uniform families
+of transparent symmetric rank-circuits.  Not only does this result establish an
+interesting characterisation of an important
+logic, but it also deepens our understanding of the connection between
+logic and circuit complexity in general and casts new light on
+foundational aspects of the circuit model.
+
+The circuit characterisation also helps emphasise certain important
+aspects of the logic.  Given that $\PT$-uniform families of invariant
+circuits (without the restriction to symmetry) express all properties
+on $\PT$, we can understand  the inability of $\FPC$ (and,
+conjecturally, $\FPR$) to express all such properties as essentially
+down to symmetry.  As with other (machine) models of computation, the
+translation to circuits exposes the inherent combinatorial structure
+of an algorithm.  In the case of logics, we find that a key property
+of this structure is its symmetry and the translation to circuits
+provides us with the tools to study it.
+
+Still, the most significant contribution of this paper is not in the main result
+but in the techniques that are developed to establish it, and we
+highlight some of these now.  The
+conclusion of~\cite{AndersonD17} says that the support theorem is
+``largely agnostic to the particular [\ldots] basis'', suggesting that
+it could be easily adapted to include other gates.  This turns out to
+have been a misjudgment.  Attempting to prove the support theorem for
+a basis that includes rank threshold gates showed us the extent to
+which both the proof of the theorem and, more broadly, the definitions
+of circuit classes, rest heavily on the assumption that all functions
+computed by gates are symmetric.  Thus, in order to define what the
+``symmetry'' condition might mean for circuits that include rank
+threshold gates, we radically generalise the circuit framework to allow
+for gates that take structured inputs (rather than sets of $0$s
+and $1$s) and are invariant under isomorphisms.  This leads to a
+refined notion of circuit automorphism, which allows us to formulate a
+notion of symmetry and prove a version of the support theorem.  Again,
+in that proof, substantial new methods are required.
+
+While the new framework allows us to reproduce some results such as
+the support theorem, something is lost in the generalisation.  When
+our basis contains only symmetric functions, important properties of
+a circuit, including the symmetry of the circuit itself, are easily
+decidable.  In the new framework, checking circuit automorphism
+requires checking isomorphism of structured inputs to gates and codes
+hard problems.  For this reason, we imposed a further restriction to
+the circuits in the form of \emph{transparency}.  But, it should be
+clear that this is a restriction only in the broader framework.  All
+symmetric circuits with only symmetric gates are transparent.  Thus,
+transparent, symmetric circuits are still a generalisation of those
+considered in~\cite{AndersonD17}.  
+
+The condition of transparency makes the translation of uniform circuit
+families into formulas of logic (which is the difficult direction of
+our characterisation) possible, but it complicates the other direction.
+Indeed, the natural translation of formulas of $\FPR$ into uniform
+circuit families yields circuits which are symmetric, but not
+transparent.  This problem is addressed by introducing gadgets in the
+translation---which for ease of exposition, we did in formulas of
+$\FOrk$ which are then translated into circuits in the natural way.
+Thus, the restriction to transparent circuits is sufficient to get
+both directions of the characterisation.  Moreover, we argue that
+something like it is necessary in order to avoid having to solve hard
+isomorphism problems in the translation.
+
+In short, we can represent the proof of our characterisation through
+the three equivalences in this triangle.
+
+\begin{center}
+  \begin{tikzcd}
+    \FPR \ar[r, equal] \ar[dr, equal] & \parbox{0.35\textwidth}{Uniform
+      families of
+      bounded-width $\FOrk$ formulas}  \ar[d, equal]\\
+    & \parbox{0.38\textwidth}{Uniform families of transparent symmetric
+      rank-circuits}
+  \end{tikzcd}
+\end{center}
+
+This highlights another interesting aspect of our result.  The first
+translation, of $\FPR$ to uniform families of $\FOrk$ formulas was
+given in~\cite{Dawar09logicswith} and used there to establish arity
+lower bounds.  However, this was for a weaker version of the rank
+logic rather than the strictly more expressive one defined by
+Gr\"{a}del and Pakusa~\cite{GradelP15a}.  The fact that we can
+complete the cycle of equivalences with the more powerful logic
+demonstrates that the definition of Gr\"{a}del and Pakusa is the
+``right'' formulation of $\FPR$.
+
+\subsection*{Future Work}
+There are many directions of work suggested by the methods and results developed
+in this paper. First of all, there is the question of transparency. We introduce
+it as a technical device that enables our characterisation to go through. Could
+it be dispensed with? Or are $\PT$-uniform families of transparent symmetric
+rank-circuits strictly weaker than families without the restriction of
+transparency? Of course a positive answer to the latter question would require
+separating $\FPR$ from $\PT$.
+
+The framework we have developed for working with circuits with structured inputs
+is very general and not specific to rank gates. Indeed, the first use we make of
+linear algebra is in the proof of Lemma~\ref{lem:rank-triple-equivilence}. It
+would be interesting to apply this framework to other logics. It appears to be
+as general a way of extending the power of circuits as Lindstr\"om quantifiers
+are in the context of logic. We would like to develop this link further, perhaps
+for specific quantifiers such as $\FP$ extended by an operator that expresses
+the solubility of systems of equations over rings as in~\cite{DGHKP}
+
+At the moment, we have little by way of methods for proving inexpressibility
+results for $\FPR$, whether we look at it as a logic or in the circuit model.
+The logical formulation lays emphasis on some parameters (the number of
+variables, the arity of the operators, etc.) which we can treat as resources
+against which to prove lower bounds. On the other hand, the circuit model brings
+to the fore other, more combinatorial, parameters. One such is the fan-in of
+gates and a promising and novel approach is to try and prove lower bounds for
+symmetric circuits with gates with bounded fan-in. We might ask if it is
+possible to compute $\AND[3]$ using a symmetric circuit with gates that have
+fan-in two. Perhaps we could also combine the circuit view with lower-bound
+methods from logic, such as pebble games. Dawar~\cite{Dawar2016} has shownn how
+the bijection games of Hella~\cite{Hella19961} can be used directly to prove
+lower bounds for symmetric without reference to the logic. We also have pebble
+games for $\FPR$~\cite{DawarH2012}, and it would be interesting to know if we
+can use these on circuits and how the combinatorial parameters of the circuit
+interact with the game.
+
+Finally, we note that some of the interesting directions on the interplay
+between logic and symmetric circuits raised in~\cite{AndersonD17} remain
+relevant. Can we relax the symmetry condition to something in between requiring
+invariance of the circuit under the full symmetric group (the case of symmetric
+circuits) and requiring no invariance condition at all? Can such restricted
+symmetries give rise to interesting logics in between $\FPR$ and $\PT$? It also
+remains a challenge to find a circuit characterisation of $\CPTC$. Could the
+general framework for non-symmetric gates we have developed here help in this
+respect?
 
 % \appendix
 
-%\bibliography{references.bib}
-%\bibliography{lipics-v2018-sample-article}
+\bibliography{references.bib}
+% \bibliography{lipics-v2018-sample-article}
 
 
 \end{document}
