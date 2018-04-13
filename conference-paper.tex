@@ -126,29 +126,28 @@ symmetry requirement interacts in surprising ways with such rank gates. It
 requires a new framework for defining classes of such circuits, which yields
 remarkable new insights.
 
-The word \emph{symmetry} is used in more than one sense
-the context of circuits (and also in this paper). We say that a Boolean function
-$f:\{0,1\}^n \ra \{0,1\}$ is symmetric if the value of the function on a string
-$s$ is determined by the number of $1$s in $s$. In other words, $f$ is invariant
-under \emph{all} permutations of its input. In contrast, when we consider the
-input to a Boolean function to be the adjacency matrix of an $n$-vertex graph,
-for example, and $f : \{0,1\}^{n \choose 2} \ra \{0,1\}$ decides a graph
-property, then $f$ is invariant under all permutations of its input induced by
-permutations of the $n$ vertices of the graph. We call such a function
-\emph{graph-invariant}. More generally, for a relational vocabulary $\tau$ and a
-standard encoding of $n$-element $\tau$-structures as strings over $\{0,1\}$, we
-can say that function taking such strings as input is $\tau$-invariant if it is
-invariant under permutations induced by the $n$ elements. A circuit $C$
-computing such an invariant function is said to be \emph{symmetric} if every
-permutation of the $n$ elements extends to an automorphism of $C$. It is
-families of symmetric circuits in this sense that characterize $\FPC$
-in~\cite{AndersonD17}. The restriction to symmetric circuits arises naturally in
-the study of logics and has appeared previously under the names of generic
-circuits in the work of~\cite{DENENBERG1986216} and explicitly order-invariant
-circuits in the work of Otto~\cite{Otto1997}.  In this paper, we use
-the word ``symmetric'', and context is used to distinguish the meaning
-of the word as applied to circuits from its meaning as applied to
-Boolean functions.
+The word \emph{symmetry} is used in more than one sense the context of circuits
+(and also in this paper). We say that a Boolean function $f:\{0,1\}^n \ra
+\{0,1\}$ is symmetric if the value of the function on a string $s$ is determined
+by the number of $1$s in $s$. In other words, $f$ is invariant under \emph{all}
+permutations of its input. In contrast, when we consider the input to a Boolean
+function to be the adjacency matrix of an $n$-vertex graph, for example, and $f
+: \{0,1\}^{n \choose 2} \ra \{0,1\}$ decides a graph property, then $f$ is
+invariant under all permutations of its input induced by permutations of the $n$
+vertices of the graph. We call such a function \emph{graph-invariant}. More
+generally, for a relational vocabulary $\tau$ and a standard encoding of
+$n$-element $\tau$-structures as strings over $\{0,1\}$, we can say that
+function taking such strings as input is $\tau$-invariant if it is invariant
+under permutations induced by the $n$ elements. A circuit $C$ computing such an
+invariant function is said to be \emph{symmetric} if every permutation of the
+$n$ elements extends to an automorphism of $C$. It is families of symmetric
+circuits in this sense that characterize $\FPC$ in~\cite{AndersonD17}. The
+restriction to symmetric circuits arises naturally in the study of logics and
+has appeared previously under the names of generic circuits in the work
+of~\cite{DENENBERG1986216} and explicitly order-invariant circuits in the work
+of Otto~\cite{Otto1997}. In this paper, we use the word ``symmetric'', and
+context is used to distinguish the meaning of the word as applied to circuits
+from its meaning as applied to Boolean functions.
 
 The main result of~\cite{AndersonD17} says that the properties of
 $\tau$-structures definable in $\FPC$ are exactly those that can be decided by
@@ -158,14 +157,15 @@ symmetric in the strong sense identified above. On the other hand, a gate for
 computing a rank threshold function, e.g.\ one that takes as input a $n \times
 n$ matrix and outputs $1$ if the rank of the matrix is greater than a threshold
 $t$, is \emph{not} symmetric. In our circuit characterization of $\FPR$ we
-necessarily have to consider such non-symmetric gates. Indeed, we can show that $\PT$-uniform families of symmetric circuits
-using gates for \emph{any} symmetric functions do not take us beyond the power
-of $\FPC$. This is a further illustration of the robustness of $\FPC$. In order
-to go beyond it, we need to introduce gates for Boolean functions that are not
-symmetric. We construct a systematic framework for including functions computing
-$\tau$-invariant functions for arbitrary multi-sorted relational vocabularies
-$\tau$ in Section~\ref{sec:symm-circ}. We also explore what it means for such
-circuits to be symmetric.
+necessarily have to consider such non-symmetric gates. Indeed, we can show that
+$\PT$-uniform families of symmetric circuits using gates for \emph{any}
+symmetric functions do not take us beyond the power of $\FPC$. This is a further
+illustration of the robustness of $\FPC$. In order to go beyond it, we need to
+introduce gates for Boolean functions that are not symmetric. We construct a
+systematic framework for including functions computing $\tau$-invariant
+functions for arbitrary multi-sorted relational vocabularies $\tau$ in
+Section~\ref{sec:symm-circ}. We also explore what it means for such circuits to
+be symmetric.
 
 The proof of the circuit characterization of $\FPC$ relies on the \emph{support
   theorem} proved in~\cite{AndersonD17}. This establishes that for any
@@ -187,35 +187,33 @@ novel technical machinery.
 Another crucial ingredient in the proof of Anderson and Dawar is that we can
 eliminate redundancy in the circuit $C_n$ by making it \emph{rigid}. That is, we
 can ensure that the \emph{only} automorphisms of $C_n$ are those that are
-induced by permutations of $[n]$.  Here we face the difficulty that identifying
+induced by permutations of $[n]$. Here we face the difficulty that identifying
 the symmetries and eliminating redundancy in a circuit that involves gates
 computing $\tau$-invariant functions requires us to solve the isomorphism
 problem for $\tau$-structures. This is a hard problem (or, at least, one that we
 do not know how to solve efficiently) even when the $\tau$-structures are
 $0$-$1$-matrices. We overcome this difficulty by placing a further restriction
 on circuits that we call \emph{transparency}. Circuits satisfying this condition
-have the property that their lack of redundancy is transparent. 
+have the property that their lack of redundancy is transparent.
 
 In the characterization of $\FPC$, the translation from formulas into families
 of circuits is easy and, indeed, standard. In our case, we have to show that
 formulas of $\FPR$ translate into uniform families of circuits using
 rank-threshold gates that are symmetric and transparent. This is somewhat more
-involved technically and presented in
-Section~\ref{sec:formulas-to-circuits}. Finally, with all these tools in place,
-the translation of such $\PT$-uniform families of circuits into formulas of
-$\FPR$ given in Section~\ref{sec:circuits-to-formulas} completes the
-characterization. This still requires substantial new techniques. The
-translation of circuits to formulas in~\cite{AndersonD17} relies on the fact
-that in order to evaluate a gate computing a symmetric Boolean function, it
-suffices to count the number of inputs that evaluate to true and there is a
-bijection between the orbits of a gate and tuple assignments to its support.
-When counting is no longer sufficient, this bijection has to preserve more
-structure and demonstrating this in the case of matrices requires new
-insight.
+involved technically and presented in Section~\ref{sec:formulas-to-circuits}.
+Finally, with all these tools in place, the translation of such $\PT$-uniform
+families of circuits into formulas of $\FPR$ given in
+Section~\ref{sec:circuits-to-formulas} completes the characterization. This
+still requires substantial new techniques. The translation of circuits to
+formulas in~\cite{AndersonD17} relies on the fact that in order to evaluate a
+gate computing a symmetric Boolean function, it suffices to count the number of
+inputs that evaluate to true and there is a bijection between the orbits of a
+gate and tuple assignments to its support. When counting is no longer
+sufficient, this bijection has to preserve more structure and demonstrating this
+in the case of matrices requires new insight.
 
-Space limitations prevent us from giving details of proofs.  These and
-much more detail can be found in the full version of this
-paper~\cite{DW-arxiv}. 
+Space limitations prevent us from giving details of proofs. These and much more
+detail can be found in the full version of this paper~\cite{DW-arxiv}.
 
 
 \section{Background}\label{sec:background}
@@ -290,34 +288,33 @@ see~\cite{Dawar09logicswith}.
 
 
 \section{Generalising Symmetric Circuits}\label{sec:symm-circ}
-A \emph{Boolean basis} is a set of Boolean functions. 
-We always use $\BB$ to
+A \emph{Boolean basis} is a set of Boolean functions. We always use $\BB$ to
 denote a basis. Let $\BS$ denote the \emph{standard basis} containing the
 Boolean functions computing $\AND$, $\OR$ and $\NOT$ for each arity. Let $\BM$
 denote the \emph{majority basis} extending the $\BS$ with the functions
-computing majority for each arity. 
+computing majority for each arity.
 
-A Boolean circuit $C$ is a directed acyclic graph in which each
-internal gate $g$ is labelled with a function $f_g : \{0,1\}^q \ra \{0,1\}$ from a basis
-$\BB$ where $q$ is the fan-in of $g$.  However, if $f_g$ were allowed to be
-arbitrary then an order would need to be imposed on the children of $g$ in order
-to ensure unambiguous evaluation.  As such, the usual notion of a circuit as a
-directed acyclic graph with no structure on the children of any gate $g$
-implicitly assumes that $f_g$ is invariant under all permutations of
-its inputs---i.e.\ $f_g$ is a symmetric function.  Indeed, it is easy to see that the
-standard basis and majority basis only contain symmetric functions.
+A Boolean circuit $C$ is a directed acyclic graph in which each internal gate
+$g$ is labelled with a function $f_g : \{0,1\}^q \ra \{0,1\}$ from a basis $\BB$
+where $q$ is the fan-in of $g$. However, if $f_g$ were allowed to be arbitrary
+then an order would need to be imposed on the children of $g$ in order to ensure
+unambiguous evaluation. As such, the usual notion of a circuit as a directed
+acyclic graph with no structure on the children of any gate $g$ implicitly
+assumes that $f_g$ is invariant under all permutations of its inputs---i.e.\
+$f_g$ is a symmetric function. Indeed, it is easy to see that the standard basis
+and majority basis only contain symmetric functions.
 
 Anderson and Dawar's~\cite{AndersonD17} characterisation of $\FPC$ is in terms
-of symmetric circuits over the majority basis. This
-circuit model cannot be strengthened by extending the basis by symmetric
-functions (see~\cite{DW-arxiv}). As our ultimate aim is a circuit characterisation of $\FPR$, which is
-strictly more expressive than than $\FPC$, we would like to consider circuits
-defined over bases containing non-symmetric Boolean functions. In particular, we
-are interested in bases containing rank-threshold functions -- i.e.\ functions
-that take in a matrix and decide if the matrix understood as having entries in
-some prime field has rank less than some threshold. While these functions are
-not symmetric in the full sense, they are symmetric in the sense of being
-invariant under row-column permutations.
+of symmetric circuits over the majority basis. This circuit model cannot be
+strengthened by extending the basis by symmetric functions
+(see~\cite{DW-arxiv}). As our ultimate aim is a circuit characterisation of
+$\FPR$, which is strictly more expressive than than $\FPC$, we would like to
+consider circuits defined over bases containing non-symmetric Boolean functions.
+In particular, we are interested in bases containing rank-threshold functions --
+i.e.\ functions that take in a matrix and decide if the matrix understood as
+having entries in some prime field has rank less than some threshold. While
+these functions are not symmetric in the full sense, they are symmetric in the
+sense of being invariant under row-column permutations.
 
 To lead up to this we first develop a general framework of structured Boolean
 functions. These are functions whose inputs naturally encode $\tau$-structures,
@@ -342,26 +339,27 @@ In this section we introduce functions that take $\tau$-structures as input,
 where $\tau$ is some many-sorted vocabulary. Let $\tau := (R, S, \nu)$ be a
 many-sorted vocabulary and let $D := \biguplus_{s \in S} D_{s} = \{(s,d) : d \in
 D_s\}$, be a disjoint union of non-empty sets. Let $\str{\tau, D}$ be the
-$\tau$-structure with universe $D$ and such that every relation is full. We
-let $\ind (\tau, D)$ be the set $\biguplus_{R_i\in R} R^{D}_i := \{ (\vec{a}, R)
-: \vec{a} \in R^{D}, \, R \in \tau \} $. We call $\ind(\tau, D)$ the \emph{index
+$\tau$-structure with universe $D$ and such that every relation is full. We let
+$\ind (\tau, D)$ be the set $\biguplus_{R_i\in R} R^{D}_i := \{ (\vec{a}, R) :
+\vec{a} \in R^{D}, \, R \in \tau \} $. We call $\ind(\tau, D)$ the \emph{index
   defined by $(\tau, D)$}.
 
-The idea is that $\ind(\tau, D)$ contains all of the potential elements of a 
-relation in a $\tau$-structure or, equivalently, the collection of
-ground atoms in the vocabulary $\tau$ with elements from the domain $D$.  We call $F : \{0,1\}^{\ind(\tau, D)} \ra
-\{0,1\}$ a \emph{$(\tau, D)$-structured function}, or just \emph{structured
-  function}, and we call $\tau$ and $D$ the \emph{vocabulary} and
-\emph{universe} of $F$.  We call $\ind(\tau, D)$ the \emph{index} of $F$, and
-denote it by $\ind(F)$.  Thus, an element of $\{0,1\}^{\ind(\tau, D)}$
-is a particular $\tau$-structure on domain $D$ and $F$ is a function
-that determines some property of such structures.  We are especially
-interested in isomorphism-invariant properties and identify these next.
+The idea is that $\ind(\tau, D)$ contains all of the potential elements of a
+relation in a $\tau$-structure or, equivalently, the collection of ground atoms
+in the vocabulary $\tau$ with elements from the domain $D$. We call $F :
+\{0,1\}^{\ind(\tau, D)} \ra \{0,1\}$ a \emph{$(\tau, D)$-structured function},
+or just \emph{structured function}, and we call $\tau$ and $D$ the
+\emph{vocabulary} and \emph{universe} of $F$. We call $\ind(\tau, D)$ the
+\emph{index} of $F$, and denote it by $\ind(F)$. Thus, an element of
+$\{0,1\}^{\ind(\tau, D)}$ is a particular $\tau$-structure on domain $D$ and $F$
+is a function that determines some property of such structures. We are
+especially interested in isomorphism-invariant properties and identify these
+next.
 
-Let $H$ be a set. We think of a function $f : \ind(\tau, D)  \rightarrow H$ as defining a
-labelling of $\str{\tau,D}$ by $H$, and we identify $f$ with this labelled
-instance of $\str{\tau, D}$. Let $f: \ind(\tau, D) \ra H$ and $g : \ind (\tau,
-D') \ra H$. We say that $f$ and $g$ are \emph{isomorphic} if there is an
+Let $H$ be a set. We think of a function $f : \ind(\tau, D) \rightarrow H$ as
+defining a labelling of $\str{\tau,D}$ by $H$, and we identify $f$ with this
+labelled instance of $\str{\tau, D}$. Let $f: \ind(\tau, D) \ra H$ and $g : \ind
+(\tau, D') \ra H$. We say that $f$ and $g$ are \emph{isomorphic} if there is an
 isomorphism $\pi : \str{\tau, D} \ra \str{\tau, D'}$ such that $f(\vec{a}_R) =
 g(\pi(\vec{a}_R))$ for all $\vec{a}_R \in \ind(\tau, D)$. In other words, $f$
 and $g$ are isomorphic if, and only if, they are isomorphic as (labelled)
@@ -374,16 +372,16 @@ We say that $F : \{0,1\}^{\ind(\tau,D)} \ra \{0,1\}$ is
 whenever $f$ and $g$ are isomorphic then $F(f) = F(g)$.
 
 \subsection{Symmetric Circuits}
-We now generalise the circuit model in~\cite{AndersonD17} in order to
-allow for circuits to be defined over bases that include non-symmetric
-(structured) functions. In this model each gate $g$ is not only associated with
-an element of the basis, but also with a labelling function. This labelling
-function maps the input gates of $g$ to an appropriate set of labels (i.e. the
-index of the structured function associated with $g$). In concord with this
-generalisation, we also update the circuit-related notions from~\cite{AndersonD17}, e.g.\ circuit automorphisms, symmetry, etc.
-Moreover, we briefly discuss some of the important complications introduced by
-our generalisation, and introduce some of the important tools we use to
-address these complications.
+We now generalise the circuit model in~\cite{AndersonD17} in order to allow for
+circuits to be defined over bases that include non-symmetric (structured)
+functions. In this model each gate $g$ is not only associated with an element of
+the basis, but also with a labelling function. This labelling function maps the
+input gates of $g$ to an appropriate set of labels (i.e. the index of the
+structured function associated with $g$). In concord with this generalisation,
+we also update the circuit-related notions from~\cite{AndersonD17}, e.g.\
+circuit automorphisms, symmetry, etc. Moreover, we briefly discuss some of the
+important complications introduced by our generalisation, and introduce some of
+the important tools we use to address these complications.
 
 \begin{definition}[Circuits on Structures]
   Let $\mathbb{B}$ be a basis of structured functions and $\rho$ be a relational
@@ -489,12 +487,11 @@ arity. In that case $C$ computes a constant function. For this reason, we always
 assume a circuit contains at least one relational gate with non-zero arity. Now,
 by assumption there exists a relational gate in $C$ such that some element of
 $[n]$ appears in the tuple labelling that gate. By symmetry it follows that
-every element of $[n]$ appears in a tuple labelling a relational gate in $C$.
-It follows that no two distinct elements of $\sym_n$ agree on all input gates,
-and so the homomorphism $h$ is injective.
-If $h$ is also surjective then we have that each element of
-$\sigma$ extends uniquely to an automorphism of the circuit. In this case we say
-that a circuit has \emph{unique extensions}.
+every element of $[n]$ appears in a tuple labelling a relational gate in $C$. It
+follows that no two distinct elements of $\sym_n$ agree on all input gates, and
+so the homomorphism $h$ is injective. If $h$ is also surjective then we have
+that each element of $\sigma$ extends uniquely to an automorphism of the
+circuit. In this case we say that a circuit has \emph{unique extensions}.
 
 \begin{definition}
   We say that a circuit $C$ has \emph{unique extensions} if for every $\sigma
@@ -503,25 +500,24 @@ that a circuit has \emph{unique extensions}.
 \end{definition}
 
 Many important technical tools, e.g.\ the support theorem, are only applicable
-to circuits with unique extensions.  It is for this reason that a
-notion of a \emph{rigid} circuit is introduced in~\cite{AndersonD17}.
-Such circuits have unique extensions and it is shown that a symmetric
-circuit over the basis $\BM$ can be converted in polynomial-time to an
-equivalent rigid one.
+to circuits with unique extensions. It is for this reason that a notion of a
+\emph{rigid} circuit is introduced in~\cite{AndersonD17}. Such circuits have
+unique extensions and it is shown that a symmetric circuit over the basis $\BM$
+can be converted in polynomial-time to an equivalent rigid one.
 
 We should like to develop a property analogous to rigidity for our framework as
 well as a similar polynomial-time translation. However, in our framework the
-value a gate $g$ computes is a function not just on the \emph{set} of
-children but depends on the structure on its input gates.  This structure must be preserved by the action of an automorphism, and so
-we require that if $\pi$ is an automorphism that maps $g$ to $g'$ then $\pi
-L(g)$ and $L(g')$ are isomorphic. Following from this observation, it can be
-shown that deciding if a function on the circuit is an automorphism, and indeed
-deciding almost any symmetry-related property, for circuits with non-symmetric
-gates is at least as hard as the graph-isomorphism problem. As such,
-constructing an argument analogous to~\cite{AndersonD17}, as well as
-establishing the numerous other crucial results whose proofs rely on the
-polynomial-time decidability of various circuit properties, would be beyond the
-scope of this paper.
+value a gate $g$ computes is a function not just on the \emph{set} of children
+but depends on the structure on its input gates. This structure must be
+preserved by the action of an automorphism, and so we require that if $\pi$ is
+an automorphism that maps $g$ to $g'$ then $\pi L(g)$ and $L(g')$ are
+isomorphic. Following from this observation, it can be shown that deciding if a
+function on the circuit is an automorphism, and indeed deciding almost any
+symmetry-related property, for circuits with non-symmetric gates is at least as
+hard as the graph-isomorphism problem. As such, constructing an argument
+analogous to~\cite{AndersonD17}, as well as establishing the numerous other
+crucial results whose proofs rely on the polynomial-time decidability of various
+circuit properties, would be beyond the scope of this paper.
 
 In order to proceed we explicitly restrict our attention to a \emph{transparent}
 circuits. We will define this term below, but before we do we need to define a
@@ -610,7 +606,7 @@ these $\AND$-gates to $g$. This construction gives the following result.
   \label{lem:transparent-unique}
 \end{lemma}
 
-This approach for proving Lemma~\ref{lem:trannsparent-unique} would not work if
+This approach for proving Lemma~\ref{lem:transparent-unique} would not work if
 the circuit were not transparent as we would need to know which wires should be
 replaced with wires from $\AND$-gates so as to preserve symmetry. It can be
 shown that deriving a wiring that preserves symmetry would involve solving an
@@ -868,16 +864,16 @@ with Lemma~\ref{lem:translating-FOrk}, allows us to prove the following.
 
 \begin{theorem}
   For each $\FPR$-formula $\theta(\vec{x})$ there exists a $\PT$-uniform family
-  of transparent symmetric rank-gates $(C_n)_{n \in \nats}$ that defines the
+  of transparent symmetric rank-circuits$(C_n)_{n \in \nats}$ that defines the
   same query as $\theta(\vec{x})$.
   \label{thm:translating-formulas-to-circuits}
 \end{theorem}
 
-\section{The Translation from Circuits into Formulas}
+\section{The Translation from Circuits into Formulas}\label{sec:circuits-to-formulas}
 We leverage the support theorem and the various polynomial-time algorithms
 defined for transparent circuits and circuits with unique labels in order to
-define a translation from $\PT$-uniform families of  symmetric rank circuits to
-formulas of $\FPR$. Let $\mathcal{C} = (C_n)_{n \in \nats}$ denote a 
+define a translation from $\PT$-uniform families of symmetric rank circuits to
+formulas of $\FPR$. Let $\mathcal{C} = (C_n)_{n \in \nats}$ denote a
 $\PT$-uniform family of transparent symmetric $(\RB, \rho)$-circuits computing a
 $q$-ary query $Q$.
 
@@ -886,12 +882,11 @@ Lemma~\ref{lem:transparent-unique}, there is a $t$-width interpretation $\Phi$
 that for each $\rho$-structure $\mathcal{A}$ of size $n$, when $\Phi$ is
 interpreted in $\mathcal{A}$ defines a symmetric rank-circuit with unique labels
 in the number universe equivalent to $C_n$. We aim to show that there exists
-$\theta_Q \in \FPR[\rho]$ that defines $Q$, i.e.\ such that 
-$\mathcal{A} \models \theta_Q[\vec{a}]$ if, and only if, $C_n[\gamma
-\mathcal{A}](\Omega (\gamma \vec{a})) = 1$ for any bijection $\gamma$. We
-first show how to recursively evaluate the gates of a circuit and then show that
-this recursive evaluation can be implemented in $\FPR$ using the fixed-point
-operator. 
+$\theta_Q \in \FPR[\rho]$ that defines $Q$, i.e.\ such that $\mathcal{A} \models
+\theta_Q[\vec{a}]$ if, and only if, $C_n[\gamma \mathcal{A}](\Omega (\gamma
+\vec{a})) = 1$ for any bijection $\gamma$. We first show how to recursively
+evaluate the gates of a circuit and then show that this recursive evaluation can
+be implemented in $\FPR$ using the fixed-point operator.
 
 Let $n_0$ and $k$ be the constants in the statement of
 Lemma~\ref{lem:row-column-supports}. Notice that for each $n < n_0$ there are
@@ -901,13 +896,13 @@ the circuit. Fix $n > n_0$ and a $\rho$-structure $\mathcal{A}$ with universe
 $U$ of size $n$.
 
 It follows from Lemma~\ref{lem:row-column-supports} that each gate $g$ has a
-support of size at most $k$ and each $a \in \universe{g}$ has a
-support of size at most $2k$. We say that two injections $f$ and $g$ are \emph{compatible} if there
-is an injection on the union of their domains that agrees with both functions.
-If there is such a function it is clearly unique, and we denote it by $(f \vert
-g)$. We use $\sim$ to denote that two injections are compatible. We show that
-the evaluation of a gate $g$ for input $\mathcal{A}$ and bijection $\gamma$
-depends only on those elements $\gamma$ maps to $\consp(g)$.
+support of size at most $k$ and each $a \in \universe{g}$ has a support of size
+at most $2k$. We say that two injections $f$ and $g$ are \emph{compatible} if
+there is an injection on the union of their domains that agrees with both
+functions. If there is such a function it is clearly unique, and we denote it by
+$(f \vert g)$. We use $\sim$ to denote that two injections are compatible. We
+show that the evaluation of a gate $g$ for input $\mathcal{A}$ and bijection
+$\gamma$ depends only on those elements $\gamma$ maps to $\consp(g)$.
 
 \begin{lemma}
 	Let $g$ be a gate in $C_n$. Let $\eta \in U^{\underline{\consp(g)}}$ and
@@ -941,15 +936,13 @@ $\FPC$-definable recursive construction of $\EV_g$ from~\cite{AndersonD17}. As
 such, we assume $g$ is a rank-gate and describe an $\FPR$-definable recursive
 procedure for defining $\EV_g$.
 
-It should be noted that the construction of $\EV_g$
-in~\cite{AndersonD17} relies on
-the fact that if $g$ is symmetric  it can be evaluated by counting the
-number of its inputs that evaluate to $1$. Using this, along with a
-bijection between the orbit of a gate and the assignmenst to the
-support of that gate, the problem of evaluating $g$ reduces to a counting problem on the
-assignments to the supports of the inputs to $g$. The results that underlie this
-counting argument fail for non-symmetric gates, and so we are forced to use a
-different approach.
+It should be noted that the construction of $\EV_g$ in~\cite{AndersonD17} relies
+on the fact that if $g$ is symmetric it can be evaluated by counting the number
+of its inputs that evaluate to $1$. Using this, along with a bijection between
+the orbit of a gate and the assignmenst to the support of that gate, the problem
+of evaluating $g$ reduces to a counting problem on the assignments to the
+supports of the inputs to $g$. The results that underlie this counting argument
+fail for non-symmetric gates, and so we are forced to use a different approach.
 
 We instead show that for any $\eta \in U^{\underline{\consp(g)}}$ there is an
 $\FPR$-definable matrix $M$ that has the same rank as $L^{\gamma
@@ -989,7 +982,7 @@ mapping $\vec{z} \mapsto \Pi^{\gamma}_{\vec{z}}(h)$, for $\vec{z} \in A_h$,
 establishes a correspondence between $A_h$ and the orbit of $h$. A similar
 correspondence exists for a fixed $a \in \universe{a}$. It follows that $\vec{z}
 \in \EV_h$ if, and only if, $C_n[\gamma \mathcal{A}](\Pi^{\gamma}_{\vec{z}}(h))
-= 1$.
+= 1$. \cite{DW-arxiv}
 
 We use this correspondence to define a mapping from $M$ to $L^{\gamma
   \mathcal{A}}(g)$. Let $\alpha^{\gamma}: I \rightarrow A$ and $\beta^{\gamma}:
@@ -997,11 +990,11 @@ J \rightarrow B$ be defined by $\alpha^{\gamma} (i, \vec{x}) :=
 \Pi^{\gamma}_{\vec{x}}(i)$ and $\beta^{\gamma} (j, \vec{y}) :=
 \Pi^{\gamma}_{\vec{y}}(j)$, respectively. It is possible to show that
 $(\alpha^{\gamma}, \beta^{\gamma})$ is a surjective homomorphism from $M$ to
-$L^{\gamma}$.  It can be shown that $\alpha^{\gamma}(i, \vec{x}) =
+$L^{\gamma}$. It can be shown that $\alpha^{\gamma}(i, \vec{x}) =
 \alpha^{\gamma}(i, \vec{x}')$ if, and only if, there exists $\pi \in
 \stab_{\consp(g)}(i)$ such that $\vec{x} = \vec{x}' \pi$ -- and a similar result
-holds for $\beta^{\gamma}$.  Thus $(\alpha^{\gamma}, \beta^{\gamma})$
-is not, in general, injective.
+holds for $\beta^{\gamma}$. Thus $(\alpha^{\gamma}, \beta^{\gamma})$ is not, in
+general, injective.
 
 We resolve this problem by quotienting. Let $s \in \universe{g}$ and $\vec{x},
 \vec{x}' \in A_s$ we say that $\vec{x} \approx \vec{x}'$ if, and only if, there
@@ -1016,7 +1009,8 @@ $\approx$-equivalence classes. As such, the quotient functions $\alpha^\gamma
 that $M((i, \vec{x}, (j, \vec{y}))) = M((i',\vec{x}'), (j', \vec{y}'))$ if $(i,
 \vec{x}) \approx (j, \vec{y})$. Let $M_{\approx} : I /_{\approx} \times J
 /_\approx \rightarrow \{0,1\}$ be defined by $M_\approx ((i, [\vec{x}])_\approx,
-(j, [\vec{y}])_\approx) := M((i,\vec{x}), (j, \vec{y}))$.  This function is well-defined.
+(j, [\vec{y}])_\approx) := M((i,\vec{x}), (j, \vec{y}))$. This function is
+well-defined.
 
 Since $(\alpha^{\gamma}, \beta^{\gamma})$ is a surjective homomorphism, $(\alpha
 /_\approx, \beta /_\approx)$ is a surjective homomorphism from $M_\approx$ to
@@ -1063,8 +1057,8 @@ Lemma~\ref{lem:compute-automorphisms}.
 The key observation is that from Lemma~\ref{lem:computing-support-orbit-gate}
 and the Immerman-Vardi theorem there are $\FPC$-formulas that define the
 canonical support and orbit for each gate $g$ and $a \in \universe{g}$. It can
-be shown that compatibility between assignments to supports is $\FPR$-definable. It
-follows that we can define $A_a$ for each $a \in \universe{g}$ and $A_h$ for
+be shown that compatibility between assignments to supports is $\FPR$-definable.
+It follows that we can define $A_a$ for each $a \in \universe{g}$ and $A_h$ for
 each $h \in H_g$. From these results we have that $I$ and $J$ are
 $\FPR$-definable. We can then define $M$ using a relation-symbol $V'$ that
 denotes value of $V$ at this stage in the recursive construction.
