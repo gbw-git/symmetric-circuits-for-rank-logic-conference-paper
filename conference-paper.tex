@@ -790,15 +790,16 @@ theorem to elements of the universe of a gate.
 \end{lemma}
 
 
-\section{The Translation from Formulas into Circuits}\label{sec:formulas-to-circuits}
+\section{The Translation from Formulas into
+  Circuits}\label{sec:formulas-to-circuits}
 The standard translation from formulas to uniform families of symmetric circuits
-does not result in a family of \emph{transparent}
-circuits. We must thus define a novel translation. We do this in two parts. We
-first define a translation from $\PT$-uniform families of bounded-width
-$\FOrk$-formulas to equivalent $\PT$-uniform of transparent symmetric
-rank-circuits. We then define a translation from formulas of $\FPR$ to
-$\PT$-uniform families of bounded-width $\FOrk$-formulas. The first of these
-translations is given by the following lemma.
+does not result in a family of \emph{transparent} circuits. We must thus define
+a novel translation. We do this in two parts. We first define a translation from
+$\PT$-uniform families of bounded-width $\FOrk$-formulas to equivalent
+$\PT$-uniform of transparent symmetric rank-circuits. We then define a
+translation from formulas of $\FPR$ to $\PT$-uniform families of bounded-width
+$\FOrk$-formulas. The first of these translations is given by the following
+lemma.
 
 \begin{lemma}
   There is a function that takes as input a $\FOrk$-formula $\theta(\vec{x})$
@@ -869,40 +870,44 @@ with Lemma~\ref{lem:translating-FOrk}, allows us to prove the following.
   \label{thm:translating-formulas-to-circuits}
 \end{theorem}
 
-\section{The Translation from Circuits into Formulas}\label{sec:circuits-to-formulas}
+\section{The Translation from Circuits into
+  Formulas}\label{sec:circuits-to-formulas}
 We leverage the support theorem and the various polynomial-time algorithms
 defined for transparent circuits and circuits with unique labels in order to
-define a translation from $\PT$-uniform families of symmetric rank circuits to
+define a translation from $\PT$-uniform families of symmetric rank-circuits to
 formulas of $\FPR$. Let $\mathcal{C} = (C_n)_{n \in \nats}$ denote a
 $\PT$-uniform family of transparent symmetric $(\RB, \rho)$-circuits computing a
 $q$-ary query $Q$.
 
 From the Immerman-Vardi theorem~\cite{Immerman198686, Vardi:1982} and
 Lemma~\ref{lem:transparent-unique}, there is a $t$-width interpretation $\Phi$
-that for each $\rho$-structure $\mathcal{A}$ of size $n$, when $\Phi$ is
-interpreted in $\mathcal{A}$ defines a symmetric rank-circuit with unique labels
-in the number universe equivalent to $C_n$. We aim to show that there exists
+such that for each $\rho$-structure $\mathcal{A}$ of size $n$ the interpretation
+of $\Phi$ in $\mathcal{A}$ defines a symmetric rank-circuit with unique labels
+(in the number universe) equivalent to $C_n$. We aim to show that there exists
 $\theta_Q \in \FPR[\rho]$ that defines $Q$, i.e.\ such that $\mathcal{A} \models
 \theta_Q[\vec{a}]$ if, and only if, $C_n[\gamma \mathcal{A}](\Omega (\gamma
-\vec{a})) = 1$ for any bijection $\gamma$. We first show how to recursively
-evaluate the gates of a circuit and then show that this recursive evaluation can
-be implemented in $\FPR$ using the fixed-point operator.
+\vec{a})) = 1$ for any bijection $\gamma \in [n]^{\underline{U}}$.
+
+% We first show how to recursively evaluate the gates of a circuit and then show
+% that this recursive evaluation can be implemented in $\FPR$ using the
+% fixed-point operator.
 
 Let $n_0$ and $k$ be the constants in the statement of
-Lemma~\ref{lem:row-column-supports}. Notice that for each $n < n_0$ there are
+Lemma~\ref{lem:row-column-supports}. Notice that for each $n \leq n_0$ there are
 only constantly many bijections from the universe of a structure to $[n]$, and
 so we can explicitly quantify over these constantly many bijections and evaluate
-the circuit. Fix $n > n_0$ and a $\rho$-structure $\mathcal{A}$ with universe
-$U$ of size $n$.
+the circuit. We thus fix $n > n_0$ and a $\rho$-structure $\mathcal{A}$ with
+universe $U$ of size $n$ and show how to evaluate $C_n$
 
 It follows from Lemma~\ref{lem:row-column-supports} that each gate $g$ has a
 support of size at most $k$ and each $a \in \universe{g}$ has a support of size
 at most $2k$. We say that two injections $f$ and $g$ are \emph{compatible} if
 there is an injection on the union of their domains that agrees with both
-functions. If there is such a function it is clearly unique, and we denote it by
-$(f \vert g)$. We use $\sim$ to denote that two injections are compatible. We
-show that the evaluation of a gate $g$ for input $\mathcal{A}$ and bijection
-$\gamma$ depends only on those elements $\gamma$ maps to $\consp(g)$.
+functions. If there is such a function then it is clearly unique, and we denote
+it by $(f \vert g)$. We use $\sim$ to denote that two injections are compatible.
+The following result gives us that the evaluation of a gate $g$ for input
+$\mathcal{A}$ and bijection $\gamma \in [n]^{\underline{U}}$ depends only on
+those elements $\gamma$ maps to $\consp(g)$.
 
 \begin{lemma}
 	Let $g$ be a gate in $C_n$. Let $\eta \in U^{\underline{\consp(g)}}$ and
@@ -915,52 +920,52 @@ $\gamma$ depends only on those elements $\gamma$ maps to $\consp(g)$.
 It follows from Lemma~\ref{lem:support-determines-evaluation} that the
 evaluation of $g$ is entirely determined by $\EV_g := \{ \eta \in
 U^{\underline{\consp(g)}} : \exists \gamma \in [n]^{\underline{U}}\text{ s.t. }
-C_n[\gamma \mathcal{A}](g) = 1 \text{ and } \eta \sim \gamma^{-1}\}$.
+C_n[\gamma \mathcal{A}](g) = 1 \text{ and } \eta \sim \gamma^{-1}\}$. Here we
+see how the support theorem allows us to characterize the evaluation of a gate
+succinctly.
 
 The query defined by $C_n$ for $\mathcal{A}$ is $Q = \{ \vec{a} \in U^{q} :
 \exists g \in G , \vec{x} \in \EV_g \text{ s.t. } \Omega(\vec{x}^{-1}(\vec{a}))
-= g\}$. In follows that in order to define $\theta_Q$ it is sufficient to show
-that $\EV_g$ is $\FPR$-definable. In particular, we show that there is an
-$\FPR$-definable relation $V \subseteq [n^t] \times U^k$ such that $(g, \vec{x})
-\in V$ if, and only if, $\overline{x}$ is the restriction of $\vec{x}$ to $\vert
-\consp(g) \vert$ elements, and the assignment that $\consp(g)$ to $\overline{x}$
-is in $\EV_g$.
+= g\}$. In order to define $Q$ it is thus sufficient to show that $\EV_g$ is
+$\FPR$-definable. In particular, we show that there is an $\FPR$-definable
+relation $V \subseteq [n^t] \times U^k$ such that $(g, \vec{x}) \in V$ if, and
+only if, $\overline{x}$ is the restriction of $\vec{x}$ to $\vert \consp(g)
+\vert$ elements and the assignment that maps $\consp(g)$ to $\overline{x}$ is in
+$\EV_g$. We do this by first describing a procedure for recursively defining
+$\EV_g$, i.e.\ defining $\EV_g$ given $\{\EV_h : h \in H_g \}$, and then arguing
+that this definition can be implemented in $\FPR$. This suffices as we may then
+use the fixed-point operator to complete the definition of $V$. The gate $g$ is
+either a symmetric gate or a rank gate. If $g$ is a symmetric gate then we have
+a $\FPC$-definable recursive construction of $\EV_g$ from~\cite{AndersonD17}. As
+such, we assume $g$ is a rank gate.
 
-We define $V$ by showing that there is a recursive $\FPR$-definition of $V$,
-which then allows us to define $V$ using the fixed-point operator. In this
-section we show that $\EV_g$ can be defined recursively, i.e.\ we can define
-$\EV_g$ given $\{\EV_h : h \in H_g \}$, and we then argue that this definition
-can be implemented in $\FPR$. For each gate $g$ we have that $g$ is either a
-symmetric gate or a rank gate. If $g$ is a symmetric gate then we have a
-$\FPC$-definable recursive construction of $\EV_g$ from~\cite{AndersonD17}. As
-such, we assume $g$ is a rank-gate and describe an $\FPR$-definable recursive
-procedure for defining $\EV_g$.
+As an aside, we note that the recursive construction of $\EV_g$
+in~\cite{AndersonD17} relies on the fact that if $g$ is symmetric then it can be
+evaluated by counting the number of its inputs that evaluate to $1$. Using this
+fact, along with a bijection between the orbit of a gate and the assignments to
+the support of that gate, the problem of evaluating $g$ reduces to a counting
+problem on the assignments to the supports of the inputs to $g$. The results
+that underlie this counting argument fail for non-symmetric gates, and so we are
+forced to use a very different approach for rank gates.
 
-It should be noted that the construction of $\EV_g$ in~\cite{AndersonD17} relies
-on the fact that if $g$ is symmetric it can be evaluated by counting the number
-of its inputs that evaluate to $1$. Using this, along with a bijection between
-the orbit of a gate and the assignmenst to the support of that gate, the problem
-of evaluating $g$ reduces to a counting problem on the assignments to the
-supports of the inputs to $g$. The results that underlie this counting argument
-fail for non-symmetric gates, and so we are forced to use a different approach.
+We instead show that for each gate $g$ and $\eta \in U^{\underline{\consp(g)}}$
+there is an $\FPR$-definable matrix $M$ that has the same rank as $L^{\gamma
+  \mathcal{A}}(g)$ for any $\gamma \in [n]^{\underline{U}}$ such that
+$\gamma^{-1} \sim \eta$. We can then check if $\eta \in \EV_g$ by applying the
+rank operator to $M$ and testing against the threshold.
 
-We instead show that for any $\eta \in U^{\underline{\consp(g)}}$ there is an
-$\FPR$-definable matrix $M$ that has the same rank as $L^{\gamma
-  \mathcal{A}}(g)$ for any $\gamma \in [n]^{\underline{U}}$. We can thus check
-if $\eta \in \EV_g$ by applying the rank operator to $M$.
-
-We introduce some notation. Let $A \times B := \ind(g)$. For each $h \in H_g$
-let $\row(h) := L(g)^{-1}(h)(1)$ and $\column(h) := L(g)^{-1}(h)(2)$. Let $A_h
-:= \{ \vec{x} \in U^{\underline{\consp(h)}} : \eta \sim \vec{x} \}$ and for all
-$a \in \universe{g}$ let $A_a = \{\vec{x} \in U^{\underline{\consp(a)}} : \eta
-\sim \vec{x}\}$.
+We introduce some notation. Let $A \times B := \ind(g)$. For $h \in H_g$ let
+$\row(h) := L(g)^{-1}(h)(1)$ and $\column(h) := L(g)^{-1}(h)(2)$. Let $A_h := \{
+\vec{x} \in U^{\underline{\consp(h)}} : \eta \sim \vec{x} \}$ and for all $a \in
+\universe{g}$ let $A_a = \{\vec{x} \in U^{\underline{\consp(a)}} : \eta \sim
+\vec{x}\}$.
 
 We first define the index sets for the matrix $M$. Let $R^{\min} := \{\min
 (\orb(\row(h))) : h \in H_g\}$ and $C^{\min} := \{ \min (\orb (\column(h))) : h
 \in H_g\}$. Let $I := \{(i, \vec{x}): i \in R^{\min}, \vec{x} \in A_i\}$ and $J
 := \{(j, \vec{y}): j \in C^{\min}, \vec{y} \in A_j\}$. We think of $R^{\min}$
 and $C^{\min}$ as indexing the orbits of the row and column elements under the
-action of $\stab(\consp(gx))$, with each orbit indexed by the minimal index in
+action of $\stab(\consp(g))$, with each orbit indexed by the minimal element in
 $A$ (or $B$, respectively) that appears in it. We think of $I$ and $J$ as
 indexing the elements within an orbit instead by elements of $A_i$ and $A_j$,
 implicitly using the bijection between these sets and the orbits of $\row(h)$
@@ -990,14 +995,14 @@ J \rightarrow B$ be defined by $\alpha^{\gamma} (i, \vec{x}) :=
 \Pi^{\gamma}_{\vec{x}}(i)$ and $\beta^{\gamma} (j, \vec{y}) :=
 \Pi^{\gamma}_{\vec{y}}(j)$, respectively. It is possible to show that
 $(\alpha^{\gamma}, \beta^{\gamma})$ is a surjective homomorphism from $M$ to
-$L^{\gamma}$. It can be shown that $\alpha^{\gamma}(i, \vec{x}) =
+$L^{\gamma\mathcal{A}}(g)$. It can be shown that $\alpha^{\gamma}(i, \vec{x}) =
 \alpha^{\gamma}(i, \vec{x}')$ if, and only if, there exists $\pi \in
 \stab_{\consp(g)}(i)$ such that $\vec{x} = \vec{x}' \pi$ -- and a similar result
-holds for $\beta^{\gamma}$. Thus $(\alpha^{\gamma}, \beta^{\gamma})$ is not, in
-general, injective.
+holds for $\beta^{\gamma}$. It follows that $(\alpha^{\gamma}, \beta^{\gamma})$
+is not, in general, injective.
 
 We resolve this problem by quotienting. Let $s \in \universe{g}$ and $\vec{x},
-\vec{x}' \in A_s$ we say that $\vec{x} \approx \vec{x}'$ if, and only if, there
+\vec{x}' \in A_s$. We say that $\vec{x} \approx \vec{x}'$ if, and only if, there
 exists $\pi \in \stab(s)$ such that $\vec{x} = \vec{x}' \pi$. For $(i, \vec{x}),
 (i', \vec{x}') \in I$ we say that $(i, \vec{x}) \approx (i', \vec{x}')$ if, and
 only if, $i = i'$ and $\vec{x} \approx \vec{x}'$. We similarly define $\approx$
@@ -1007,20 +1012,22 @@ It is easy to see that $\alpha^{\gamma}$ and $\beta^{\gamma}$ are constant on
 $\approx$-equivalence classes. As such, the quotient functions $\alpha^\gamma
 /_\approx$ and $\beta^{\gamma} /_\approx$ are well-defined. We can also show
 that $M((i, \vec{x}, (j, \vec{y}))) = M((i',\vec{x}'), (j', \vec{y}'))$ if $(i,
-\vec{x}) \approx (j, \vec{y})$. Let $M_{\approx} : I /_{\approx} \times J
-/_\approx \rightarrow \{0,1\}$ be defined by $M_\approx ((i, [\vec{x}])_\approx,
-(j, [\vec{y}])_\approx) := M((i,\vec{x}), (j, \vec{y}))$. This function is
+\vec{x}) \approx (i', \vec{x}')$ and $(j, \vec{y}) \approx (j', \vec{y}')$. Let
+$M_{\approx} : I /_{\approx} \times J /_\approx \rightarrow \{0,1\}$ be defined
+by $M_\approx ((i, [\vec{x}])_\approx, (j, [\vec{y}])_\approx) := M((i,\vec{x}),
+(j, \vec{y}))$. It follows from the previous observation that this function is
 well-defined.
 
-Since $(\alpha^{\gamma}, \beta^{\gamma})$ is a surjective homomorphism, $(\alpha
-/_\approx, \beta /_\approx)$ is a surjective homomorphism from $M_\approx$ to
-$L^{\gamma \mathcal{A}}$. Moreover, it follows from the above observation on the
-failure of injectivety that $(\alpha /_\approx, \beta /_\approx)$ is an
-injection. We thus have the following result.
+Since $(\alpha^{\gamma}, \beta^{\gamma})$ is a surjective homomorphism,
+$(\alpha^{\gamma} /_\approx, \beta^{\gamma} /_\approx)$ is a surjective
+homomorphism from $M_\approx$ to $L^{\gamma \mathcal{A}}(g)$. Moreover, it
+follows from the previous comment on the failure of injectivety that
+$(\alpha^{\gamma} /_\approx, \beta^{\gamma} /_\approx)$ is an injection. We thus
+have the following result.
 
 \begin{theorem}
 	Let $\gamma \in [n]^{\underline{U}}$ such that $\gamma^{-1} \sim \eta$. Then
-  $L^{\gamma}$ is isomorphic to $M_{\equiv}$.
+  $L^{\gamma \mathcal{A}}(g)$ is isomorphic to $M_{\equiv}$.
 	\label{thm:LM-equivalence}
 \end{theorem}
 
@@ -1032,17 +1039,16 @@ Theorem~\ref{thm:LM-equivalence} we have the following result.
 \begin{lemma}
 	Let $\gamma \in U^{\underline{n}}$ be such that $\gamma^{-1} \sim \eta$ and
   let $p \in \nats$ be prime. Then $\rank_p (M) = \rank_p (M_\equiv) = \rank_p
-  (L^{\gamma})$.
+  (L^{\gamma \mathcal{A}}(g))$.
   \label{lem:rank-triple-equivilence}
 \end{lemma}
 
 It remains to justify our assertion that the above recursive definition of
 $\EV_g$ can be implemented in $\FPR$. It is sufficient to show that there is an
-$\FPR$-formula that defines $M$ for a given rank-gate $g$ and assignment $\eta
-\in U^{\underline{\consp(g)}}$. It must first be shown that the set $\{(g,
-\consp(g)) : g \in G\}$ is definable. We also need that $I$ and $J$ are
-definable. We have the following results as a consequence of
-Lemma~\ref{lem:compute-automorphisms}.
+$\FPR$-formula that defines $M$ for a rank gate $g$ and assignment $\eta \in
+U^{\underline{\consp(g)}}$. We first show that the sets $\{(g, \consp(g)) : g
+\in G\}$, $I$, and $J$ are $\FPR$-definable. We have the following results as a
+consequence of Lemma~\ref{lem:compute-automorphisms}.
 
 \begin{lemma}
   There is an algorithm that takes in a circuit $C$ with unique labels and
@@ -1054,14 +1060,15 @@ Lemma~\ref{lem:compute-automorphisms}.
   \label{lem:computing-support-orbit-gate}
 \end{lemma}
 
-The key observation is that from Lemma~\ref{lem:computing-support-orbit-gate}
-and the Immerman-Vardi theorem there are $\FPC$-formulas that define the
-canonical support and orbit for each gate $g$ and $a \in \universe{g}$. It can
-be shown that compatibility between assignments to supports is $\FPR$-definable.
-It follows that we can define $A_a$ for each $a \in \universe{g}$ and $A_h$ for
-each $h \in H_g$. From these results we have that $I$ and $J$ are
-$\FPR$-definable. We can then define $M$ using a relation-symbol $V'$ that
-denotes value of $V$ at this stage in the recursive construction.
+From Lemma~\ref{lem:computing-support-orbit-gate} and the Immerman-Vardi theorem
+there are $\FPC$-formulas that define the canonical support and orbit for each
+gate $g$ and each $a \in \universe{g}$. Moreover, it can be shown that
+compatibility between assignments to supports is $\FPR$-definable. It follows
+that we can define $A_a$ for each $a \in \universe{g}$ and $A_h$ for each $h \in
+H_g$. Combining these results we have that $I$ and $J$ are $\FPR$-definable. We
+then define $M$ using a relation symbol $V'$ that denotes value of $V$ at this
+stage in the recursive construction. This completes the $\FPR$-definition of $M$
+and so $\EV_g$, and hence the proof of our main result.
 
 \section{Concluding Remarks and Future Work}
 $\FPR$ is one of the most expressive logics we know that is still contained in
@@ -1069,7 +1076,7 @@ $\PT$ and understanding its expressive power is an important question. The main
 result of this paper establishes an equivalence between the expressive power of
 $\FPR$ and the computational power of uniform families of transparent symmetric
 rank-circuits. Not only does this establish an interesting
-characterisation of an important logic, it also deepens our understanding of
+characterization of an important logic, it also deepens our understanding of
 the connection between logic and circuit complexity and sheds new
 light on foundational aspects of the circuit model.
 
