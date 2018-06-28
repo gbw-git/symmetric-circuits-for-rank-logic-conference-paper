@@ -133,7 +133,7 @@ symmetry requirement interacts in surprising ways with such rank gates. It
 requires a new framework for defining classes of such circuits, which yields
 remarkable new insights.
 
-The word \emph{symmetry} is used in more than one sense the context of circuits
+The word \emph{symmetry} is used in more than one sense in the context of circuits
 (and also in this paper). We say that a Boolean function $f:\{0,1\}^n \ra
 \{0,1\}$ is symmetric if the value of the function on a string $s$ is determined
 by the number of $1$s in $s$. In other words, $f$ is invariant under \emph{all}
@@ -306,7 +306,7 @@ see~\cite{Dawar09logicswith}.
 % $\stab_n(S)$ to abbreviate $\stab_{\sym_n}(S)$. If group is obvious from
 % context we may omit the subscript.
 
-\section{Generalising Symmetric Circuits}\label{sec:symm-circ}
+\section{Generalizing Symmetric Circuits}\label{sec:symm-circ}
 A \emph{Boolean basis} is a set of Boolean functions. We always use $\BB$ to
 denote a basis. Let $\BS$ denote the \emph{standard basis} containing the
 Boolean functions computing $\AND$, $\OR$ and $\NOT$ for each arity. Let $\BM$
@@ -324,7 +324,7 @@ inputs---i.e.\ $f_g$ is a symmetric function. It is easy to see that the
 standard basis and majority basis contain only symmetric functions.
 
 Anderson and Dawar~\cite{AndersonD17} characterize the expressive power of
-$\FPC$ is in terms of symmetric circuits over the majority basis. This circuit
+$\FPC$ in terms of symmetric circuits over the majority basis. This circuit
 model cannot be strengthened by extending the basis by symmetric functions
 (see~\cite{DW-arxiv}). As our ultimate aim is a circuit characterisation of
 $\FPR$, which is strictly more expressive than than $\FPC$, we would like to
@@ -357,7 +357,7 @@ not be invariance under arbitrary permutation, but rather invariance under the
 action of a permutation of $V$.
 
 In this subsection we formalise this notion and define a class of functions that
-take in many-sorted structures and define a natural symmetry notion for this
+take in many-sorted structures and define a natural symmetry notion for such
 functions. Let $\tau := (R, S, \nu)$ be a many-sorted vocabulary and let $D :=
 \biguplus_{s \in S} D_{s} = \{(s,d) : d \in D_s\}$, be a disjoint union of
 non-empty sets. Let $\str{\tau, D}$ be the $\tau$-structure with universe $D$
@@ -376,7 +376,7 @@ $D$. We call a function $F : \{0,1\}^{\ind(\tau, D)} \ra \{0,1\}$ a
 \emph{$(\tau, D)$-structured function}, or just \emph{structured function}, and
 we call $\tau$ and $D$ the \emph{vocabulary} and \emph{universe} of $F$, and
 denote them by $\vocab{F}$ and $\universe{F}$ respectively. We call $\ind(\tau,
-D)$ the \emph{index} of $F$, and denote it by $\ind(F)$. We see that $F$ that
+D)$ the \emph{index} of $F$, and denote it by $\ind(F)$. We see that $F$ 
 defines a class of $\tau$-structures with universe $D$. We are especially
 interested in structured functions that are symmetric in some sense, and hence
 decide properties of $\tau$-structures, i.e.\ isomorphism-closed classes of
@@ -402,7 +402,7 @@ We now generalise the circuit model in~\cite{AndersonD17} in order to allow for
 circuits to be defined over bases that include non-symmetric (structured)
 functions. In this model each gate $g$ is not only associated with an element of
 the basis, but also with a labelling function. This labelling function maps the
-input gates of $g$ to an appropriate set of labels (i.e. the index of the
+input gates of $g$ to an appropriate set of labels (i.e.\ the index of the
 structured function associated with $g$). In concord with this generalisation,
 we also update the circuit-related notions from~\cite{AndersonD17}, e.g.\
 circuit automorphisms, symmetry, etc. Moreover, we briefly discuss some of the
@@ -434,8 +434,8 @@ the important tools we use to address these complications.
   \item $L$ associates with each internal gate $g$ a function $L(g):
     \ind(\Sigma(g)) \rightarrow G$ such that if we define a relation $W
     \subseteq G^{2}$ by $W(h_1,h_2)$ iff $h_2$ is an internal gate and $h_1$ is
-    in the image of $L(h_2)$, then $(G, W)$ is a connected directed acyclic
-    graph.
+    in the image of $L(h_2)$, then $(G, W)$ is a %connected 
+    directed acyclic graph.
   \end{itemize}
 \end{definition}
 
@@ -488,7 +488,7 @@ We now define a circuit automorphism for a circuit.
   \item for all gates $g \in G$, $\Sigma (g) = \Sigma (\pi g)$,
   \item for each relational gate $g \in G$, $\sigma \Lambda (g) = \Lambda (\pi
     g)$, and
-  \item For each pair of gates $g, h \in G$, we have $W(h,g)$ if and only if
+  \item For each pair of gates $g, h \in G$, we have $W(h,g)$ if, and only if,
     $W(\pi h, \pi g)$ and for each internal gate $g$ we have that $L(\pi g)$ and
     $ \pi \cdot L(g)$ are isomorphic.
   \end{itemize}
@@ -505,19 +505,33 @@ We are particularly interested in circuits that have the property that
   $\sigma \in \sym_n$ extends to an automorphism on $C$.
 \end{definition}
 
-It follows that for any symmetric circuit $C$ of order $n$ there is a
-homomorphism $h$ that maps $\sym_n$ to $\aut(C)$ such that if $\sigma \in
-\sym_n$ then $h(\sigma)$ is an an automorphism extending $\sigma$. Suppose $C$
+Suppose $C$
 does not contain a relational gate labelled by a relation symbol with non-zero
 arity. In that case $C$ computes a constant function. For this reason, we always
 assume a circuit contains at least one relational gate with non-zero arity. Now,
 by assumption there exists a relational gate in $C$ such that some element of
 $[n]$ appears in the tuple labelling that gate. By symmetry it follows that
 every element of $[n]$ appears in a tuple labelling a relational gate in $C$. It
-follows that no two distinct elements of $\sym_n$ agree on all input gates, and
-so the homomorphism $h$ is injective. If $h$ is also surjective then we have
+follows that no two distinct elements of $\sym_n$ agree on all input
+gates and so we can associate with each $\pi \in \aut(C)$ a unique
+$h(\pi) \in \sym_n$ that it extends and it is easily seen that $h:
+\aut(C) \ra \sym_n$ is a surjective group homomorphism.  If $h$ is also injective then we have
 that each element of $\sigma$ extends uniquely to an automorphism of the
 circuit. In this case we say that a circuit has \emph{unique extensions}.
+
+% It follows that for any symmetric circuit $C$ of order $n$ there is a
+% homomorphism $h$ that maps $\sym_n$ to $\aut(C)$ such that if $\sigma \in
+% \sym_n$ then $h(\sigma)$ is an automorphism extending $\sigma$. Suppose $C$
+% does not contain a relational gate labelled by a relation symbol with non-zero
+% arity. In that case $C$ computes a constant function. For this reason, we always
+% assume a circuit contains at least one relational gate with non-zero arity. Now,
+% by assumption there exists a relational gate in $C$ such that some element of
+% $[n]$ appears in the tuple labelling that gate. By symmetry it follows that
+% every element of $[n]$ appears in a tuple labelling a relational gate in $C$. It
+% follows that no two distinct elements of $\sym_n$ agree on all input gates, And
+% so the homomorphism $h$ is injective. If $h$ is also surjective then we have
+% that each element of $\sigma$ extends uniquely to an automorphism of the
+% circuit. In this case we say that a circuit has \emph{unique extensions}.
 
 \begin{definition}
   We say that a circuit $C$ has \emph{unique extensions} if for every $\sigma
@@ -720,13 +734,13 @@ supporting partition~\cite{AndersonD17}. We call this partition the
 It is easy to show that if $\mathcal{P}$ is a supporting partition for $G \leq
 \sym_n$ and $P$ is the largest part of $\mathcal{P}$ then $[n] \setminus P$ is a
 support for $G$. We say that $G$ has \emph{small support} if there exists $P \in
-\SP(G)$ such that $\vert P \vert > \frac{1}{2}$, and if $G$ has small support
+\SP(G)$ such that $\vert P \vert > \frac{n}{2}$, and if $G$ has small support
 then we call $\consp(G) := [n] \setminus P$ the \emph{canonical support} for
 $G$.
 
-We apply the language of supports to circuits. Let $C$ be a circuit of order $n$
-with unique extensions and let $g$ be a gate in $C$. There is a group of
-$\sym_n$ on the gates of $C$. We say that a partition $\mathcal{P}$ of $[n]$
+We apply the language of supports to circuits. Let $C$ be a symmetric circuit of order $n$
+with unique extensions and let $g$ be a gate in $C$. There is a group action of
+$\sym_n$ on the gates of $C$, given by the isomorphism of $\sym_n$ and $\aut(C)$. We say that a partition $\mathcal{P}$ of $[n]$
 (resp. a set $S \subseteq [n]$) is a supporting partition for $g$ if
 $\mathcal{P}$ is a supporting partition for $\stab(g)$ (resp.\ $S$ is a support
 for $\stab(g)$). We abuse notation and write $\SP(g)$ and $\consp(g)$ for the
@@ -1192,7 +1206,7 @@ possible to compute $\AND[3]$ using a symmetric circuit with gates that have
 fan-in two. Perhaps we could also combine the circuit view with lower-bound
 methods from logic, such as pebble games. Dawar~\cite{Dawar2016} has shown how
 the bijection games of Hella~\cite{Hella19961} can be used directly to prove
-lower bounds for symmetric without reference to the logic. We also have pebble
+lower bounds for symmetric circuits without reference to the logic. We also have pebble
 games for $\FPR$~\cite{DawarH2012}, and it would be interesting to know if we
 can use these on circuits and how the combinatorial parameters of the circuit
 interact with the game.
